@@ -57,7 +57,7 @@ void publish(tCircularQueue<string>& queue)
 {
     int count = 0;
     while (count <= maxValue) {
-        if (queue.push(count)) {
+        if (queue.push(std::string("abc"))) {
             static std::mutex Lock;
             std::lock_guard<std::mutex> guard(Lock);
             std::cout << "push" << count << std::endl;

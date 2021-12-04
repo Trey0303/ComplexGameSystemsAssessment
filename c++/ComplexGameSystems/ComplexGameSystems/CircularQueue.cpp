@@ -48,6 +48,7 @@ bool tCircularQueue<T>::push(const T& val)
 		int nextIndex = curIndex++;//get pointer to next index
 		arr[curIndex] = val;//val set as new last index
 		curIndex = nextIndex;//set curIndex pointer to next index position
+		size()++;
 		return true;
 	}
 
@@ -56,16 +57,16 @@ bool tCircularQueue<T>::push(const T& val)
 template<typename T>
 bool tCircularQueue<T>::pop()
 {
-	//delete front value
 	if (empty()) {//if empty
 		return false;
 	}
+	//delete front value
 	else {
 		int curIndex = front();//get current front index
 		int nextIndex = curIndex++;
 		delete curIndex;//remove current front index
 	    curIndex = nextIndex;//set next index as new current front index
-
+		return true;
 	}
 	
 }

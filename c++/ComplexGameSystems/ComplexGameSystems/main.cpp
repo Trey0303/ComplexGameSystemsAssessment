@@ -17,6 +17,7 @@ bool keepRunning = true;
 //keeps track of things that the thread needs to work on
 int messageCount = 0;
 int printCount = 0;
+int maxValue = 100;
 
 void print()
 {
@@ -55,7 +56,7 @@ void print()
 void publish(tCircularQueue<string>& queue)
 {
     int count = 0;
-    while (count <= 100) {
+    while (count <= maxValue) {
         if (queue.push(count)) {
             static std::mutex Lock;
             std::lock_guard<std::mutex> guard(Lock);
@@ -68,7 +69,7 @@ void publish(tCircularQueue<string>& queue)
 
 void consume(tCircularQueue<string>& queue) {
     int count = 0;
-    while (count <= 100) {
+    while (count <= maxValue) {
         if (queue.pop()) {
             static std::mutex Lock;
             std::lock_guard<std::mutex> guard(Lock);

@@ -7,6 +7,8 @@
 #include <iostream>
 using namespace std;
 
+#include "CircularQueue.h"
+
     //A container to store the created threads
 //stores any added message
 string messages[100];
@@ -50,6 +52,32 @@ void print()
     }
 }
 
+void publish(tCircularQueue<string>& queue)
+{
+    int count = 0;
+    while (count <= 100) {
+        if (queue.push(count)) {
+            static std::mutex Lock;
+            std::lock_guard<std::mutex> guard(Lock);
+            std::cout << "push" << count << std::endl;
+            count++;
+        }
+        
+    }
+}
+
+void consume(tCircularQueue<string>& queue) {
+    int count = 0;
+    while (count <= 100) {
+        if (queue.pop()) {
+            static std::mutex Lock;
+            std::lock_guard<std::mutex> guard(Lock);
+            std::cout << "pop" << count << std::endl;
+            count++;
+        }
+    }
+}
+
 int main()
 {
     //create empty text file
@@ -70,31 +98,17 @@ int main()
     messages[messageCount] = "3rd line of text";
     messageCount++;
 
-    //messageCount++;
-    //std::thread(print, "line 2");
-
     //kill thread
     keepRunning = false;
     printThread.join();
-    //std::thread t(print, "testing");
 
-    //t.join();
-
+    tCircularQueue<string> circQueue;
     
+    std::thread publisher(publish, std::ref(circQueue));
+    std::thread consumer(publish, std::ref(circQueue));
 
-    // create a thread that will execute the print function
-    //std::vector<std::thread> threads;
-
-    //for (int i = 0; i < 50; ++i)
-    //{
-    //    threads.push_back(std::thread(print, i));
-    //}
-    //// blocks execution on the main thread until all threads exit
-    //for (int i = 0; i < 50; ++i)
-    //{
-    //    threads[i].join();
-    //}
-
+    publisher.join();
+    consumer.join();
 
     return 0;
 }

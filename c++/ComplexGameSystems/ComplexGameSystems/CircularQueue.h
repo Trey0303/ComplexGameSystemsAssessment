@@ -36,6 +36,7 @@ private:
                                             //  - this is ideally a power of two
 
     size_t arrSize = 0;
+	//int count = 0;
 
     std::atomic<size_t> readIndex;    // the first index to read from (aka front)
     std::atomic<size_t> writeIndex;   // the next index to write to (aka back)
@@ -47,6 +48,9 @@ tCircularQueue<T>::tCircularQueue()//initaializes array
 {
 	arr = new T[capacity()];
 	arrSize = 0;
+
+	readIndex = 0;
+	writeIndex = 0;
 }
 
 //template<typename T>
@@ -55,19 +59,36 @@ tCircularQueue<T>::tCircularQueue()//initaializes array
 //	T* arrCopy = new T[capacity()];
 //}
 //
-//template<typename T>
-//tCircularQueue<T>& tCircularQueue<T>::operator =(const tCircularQueue& other) { // copy assignment operator
-//	T* arrtemp = new T[capacity()];
-//
-//	arrtemp.capacity() = other.capacity();
-//	arrtemp.arrSize = other.arrSize;
-//	
-//	for (int i = 0; i < other.arrSize; i++) {
-//		//copy all that is stored inside other array
-//	}
-//
-//	return *this;
-//}
+template<typename T>
+tCircularQueue<T>& tCircularQueue<T>::operator =(const tCircularQueue& other) { // copy assignment operator
+	//T* arrtemp = new T[capacity()];
+
+	//arrtemp.capacity() = other.capacity();
+	//arrtemp.arrSize = other.arrSize;
+	//
+	//for (int i = 0; i < other.arrSize; i++) {
+	//	//copy all that is stored inside other array
+	//}
+
+	//delete old arr data
+	while (readIndex != nullptr) {
+		pop();
+		
+	}
+	readIndex = 0;
+	writeIndex = 0;
+
+	//overwrite with other data
+	if (other.readIndex != nullptr) {
+		for (int i = 0; i < other.arrSize; i++) {
+			//	//copy all that is stored inside other array
+			arr[i] = other[i];
+			arrSize = other.arrSize;
+		}
+	}
+
+	return *this;
+}
 
 template<typename T>
 tCircularQueue<T>::~tCircularQueue()//delete array
@@ -80,17 +101,31 @@ bool tCircularQueue<T>::push(const T& val)
 {
 
 	//if size of array is greater than capacity of array
-	if (size() >= capacity()) {
+	if (size() == capacity()) {
 		return false;
 
 	}
 	else {//push val at the back of arr
-		int curIndex = size();//gets last index
-		int nextIndex = curIndex++;//get pointer to next index
-		arr[curIndex] = val;//val set as new last index
-		curIndex = nextIndex;//set curIndex pointer to next index position
-		arrSize++;
-		return true;
+		if (writeIndex == readIndex) {
+			//for (int i = 0; i < size(); i++) {
+			//	if (arr[i] != nullptr) {
+			//		count++;
+			//	}
+			//}
+			if (arrSize == capacity()) {
+				return false;
+
+			}
+			else {
+				int curIndex = writeIndex;//gets last index
+				int nextIndex = curIndex++;//get pointer to next index
+				arr[curIndex] = val;//val set as new last index
+				writeIndex = nextIndex;//set curIndex pointer to next index position
+				arrSize++;
+				return true;
+			}
+		}
+		
 	}
 
 }
@@ -103,9 +138,9 @@ bool tCircularQueue<T>::pop()
 	}
 	//delete front value
 	else {
-		int curIndex = arr.front();//get current front index
+		int curIndex = readIndex;//get current front index
 		int nextIndex = curIndex++;
-		curIndex = nextIndex;//set next index as new current front index
+		readIndex = nextIndex;//set next index as new current front index
 		return true;
 	}
 
@@ -114,20 +149,23 @@ bool tCircularQueue<T>::pop()
 template<typename T>
 const T& tCircularQueue<T>::front() const
 {
-	return readIndex = arr[0];
+	return readIndex;
 
 }
 
 template<typename T>
 bool tCircularQueue<T>::empty() const
 {
-	if (size() > 1) {//array not empty
-		return false;
+	if (readIndex == writeIndex) {
+		if (arrSize > 1) {//array not empty
+			return false;
 
+		}
+		else {
+			return true;
+		}
 	}
-	else {
-		return true;
-	}
+	
 
 }
 

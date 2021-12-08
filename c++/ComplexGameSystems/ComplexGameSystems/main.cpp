@@ -103,10 +103,14 @@ int main()
     keepRunning = false;
     printThread.join();
 
+    //circular queue
+
+    //create a string circluar queue
     tCircularQueue<string> circQueue;
     
+    //create threads for to keep track of read and write index
     std::thread publisher(publish, std::ref(circQueue));
-    std::thread consumer(publish, std::ref(circQueue));
+    std::thread consumer(consume, std::ref(circQueue));
 
     publisher.join();
     consumer.join();

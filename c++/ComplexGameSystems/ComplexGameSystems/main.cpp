@@ -63,7 +63,6 @@ void publish(tCircularQueue<string>& queue)
             std::cout << "push" << count << std::endl;
             count++;
         }
-        
     }
 }
 

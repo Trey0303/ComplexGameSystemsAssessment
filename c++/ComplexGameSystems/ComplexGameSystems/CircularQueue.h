@@ -124,6 +124,11 @@ bool tCircularQueue<T>::pop()
 		int curIndex = readIndex;//get current front index
 		int nextIndex = ++curIndex;
 		readIndex = nextIndex;//set next index as new current front index
+		
+		if (readIndex >= RAW_CAPACITY) {
+			readIndex = 0;
+		}
+
 		return true;
 	}
 
@@ -156,6 +161,11 @@ bool tCircularQueue<T>::full() const
 template<typename T>
 bool tCircularQueue<T>::empty() const
 {
+	int nextIndex = readIndex + 1;
+	if (nextIndex >= RAW_CAPACITY) {//if writeIndex at end of arr
+		nextIndex = 0;//circle back to 0
+	}
+
 	if (readIndex == writeIndex) {//empty
 		return true;
 	}

@@ -39,12 +39,7 @@ multithreaded_application::multithreaded_application() : m_waiting_to_write(fals
 				m_render_data_mutex.unlock();
 
 			}
-
-
-			
 		}
-
-
 	});
 
 	m_pathfindingThread = std::thread([&] {

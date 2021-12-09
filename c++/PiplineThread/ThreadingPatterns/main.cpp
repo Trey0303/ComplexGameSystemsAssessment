@@ -7,7 +7,9 @@
 
 int main()
 {
+    //logic thread
 	multithreaded_application application;
+
     while (true)
     {
 		application.tick();

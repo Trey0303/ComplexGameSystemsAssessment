@@ -31,11 +31,11 @@ public:
 
 private:
     T* arr;                                // pointer to the underlying array
-    static const size_t RAW_CAPACITY = 16;  // capacity of the raw array
+    static const size_t RAW_CAPACITY = 5;  // capacity of the raw array
                                             //  - note that actual capacity will always be RAW_CAPACITY-1
                                             //  - this is ideally a power of two
 
-    size_t arrSize = 0;
+    //size_t arrSize = 0;
 	//int count = 0;
 
     std::atomic<size_t> readIndex;    // the first index to read from (aka front)
@@ -47,7 +47,7 @@ template<typename T>
 tCircularQueue<T>::tCircularQueue()//initaializes array
 {
 	arr = new T[capacity()];
-	arrSize = 0;
+	//arrSize = 0;
 
 	readIndex = 0;
 	writeIndex = 0;
@@ -56,80 +56,67 @@ tCircularQueue<T>::tCircularQueue()//initaializes array
 //template<typename T>
 //tCircularQueue<T>::tCircularQueue(const tCircularQueue& other)// copy constructor
 //{
-//	T* arrCopy = new T[capacity()];
+//	T* arrCopy = new T[other.arrSize];
 //}
 //
-template<typename T>
-tCircularQueue<T>& tCircularQueue<T>::operator =(const tCircularQueue& other) { // copy assignment operator
-	//T* arrtemp = new T[capacity()];
+//template<typename T>
+//tCircularQueue<T>& tCircularQueue<T>::operator =(const tCircularQueue& other) { // copy assignment operator
+//
+//	//delete old arr data
+//	while (readIndex != nullptr) {
+//		pop();
+//		
+//	}
+//	readIndex = 0;
+//	writeIndex = 0;
+//
+//	//overwrite with other data
+//	if (other.readIndex != nullptr) {
+//		for (int i = 0; i < other.arrSize; i++) {
+//			//	//copy all that is stored inside other array
+//			arr[i] = other[i];
+//			arrSize = other.arrSize;
+//		}
+//	}
+//
+//	return *this;
+//}
 
-	//arrtemp.capacity() = other.capacity();
-	//arrtemp.arrSize = other.arrSize;
-	//
-	//for (int i = 0; i < other.arrSize; i++) {
-	//	//copy all that is stored inside other array
-	//}
-
-	//delete old arr data
-	while (readIndex != nullptr) {
-		pop();
-		
-	}
-	readIndex = 0;
-	writeIndex = 0;
-
-	//overwrite with other data
-	if (other.readIndex != nullptr) {
-		for (int i = 0; i < other.arrSize; i++) {
-			//	//copy all that is stored inside other array
-			arr[i] = other[i];
-			arrSize = other.arrSize;
-		}
-	}
-
-	return *this;
-}
-
+// cleans up any dynamically allocated data
 template<typename T>
 tCircularQueue<T>::~tCircularQueue()//delete array
 {
 	delete[] arr;
 }
 
+
+// returns true if it write a value to at the write index, otherwise false
 template<typename T>
 bool tCircularQueue<T>::push(const T& val)
 {
 
-	//if size of array is greater than capacity of array
-	if (size() == capacity()) {
-		return false;
+	//ex: 4 + 1 = 5 > 5 - 1 = 4 
+	//            5 > 4 true
+	if (writeIndex + 1 > RAW_CAPACITY - 1) {//if writeIndex at end of arr
+		writeIndex = 0;//circle back to 0
+	}
 
+	if (writeIndex + 1 == readIndex || /*if both are 0*/ writeIndex + 1 < 1 && readIndex < 1) {//if write index was to increase would it end up on the same position as readIndex
+		
+		return false;
 	}
 	else {//push val at the back of arr
-		if (writeIndex == readIndex) {
-			//for (int i = 0; i < size(); i++) {
-			//	if (arr[i] != nullptr) {
-			//		count++;
-			//	}
-			//}
-			if (arrSize == capacity()) {
-				return false;
-
-			}
-			else {
-				int curIndex = writeIndex;//gets last index
-				int nextIndex = curIndex++;//get pointer to next index
-				arr[curIndex] = val;//val set as new last index
-				writeIndex = nextIndex;//set curIndex pointer to next index position
-				arrSize++;
-				return true;
-			}
-		}
+		int curIndex = writeIndex;//gets last index
+		int nextIndex = curIndex + 1;//get pointer to next index
+		arr[curIndex] = val;//val set as new last index
+		writeIndex = nextIndex;//set curIndex pointer to next index position
 		
+		return true;
 	}
-
+	//}
 }
 
+// returns true if it pops the value at the read index, otherwise false
 template<typename T>
 bool tCircularQueue<T>::pop()
 {
@@ -146,35 +133,36 @@ bool tCircularQueue<T>::pop()
 
 }
 
+// retrieves the value at the front (read index)
 template<typename T>
 const T& tCircularQueue<T>::front() const
 {
-	return readIndex;
+	return arr[readIndex];
 
 }
 
+// returns true if there are no unpopped elements
 template<typename T>
 bool tCircularQueue<T>::empty() const
 {
-	if (readIndex == writeIndex) {
-		if (arrSize > 1) {//array not empty
-			return false;
-
-		}
-		else {
-			return true;
-		}
+	if (readIndex == writeIndex) {//empty
+		return true;
+	}
+	else {//not empty
+		return false;
 	}
 	
 
 }
 
+// returns the current number of elements pushed
 template<typename T>
 size_t tCircularQueue<T>::size() const
 {
-	return arrSize;
+	return writeIndex;
 }
 
+// returns the maximum number of elements that can be pushed
 template<typename T>
 size_t tCircularQueue<T>::capacity() const
 {

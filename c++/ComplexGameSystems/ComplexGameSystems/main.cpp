@@ -107,13 +107,18 @@ int main()
 
     //create a string circluar queue
     tCircularQueue<string> circQueue;
+    //tCircularQueue<string> circQueueCopy;
     
     //create threads for to keep track of read and write index
     std::thread publisher(publish, std::ref(circQueue));
     std::thread consumer(consume, std::ref(circQueue));
+    //std::thread copyPublisher;
+
+    //circQueueCopy = circQueue;
 
     publisher.join();
     consumer.join();
+    //copyPublisher.join();
 
     return 0;
 }

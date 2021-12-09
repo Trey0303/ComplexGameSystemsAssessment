@@ -94,15 +94,13 @@ tCircularQueue<T>::~tCircularQueue()//delete array
 template<typename T>
 bool tCircularQueue<T>::push(const T& val)
 {
-
 	//ex: 4 + 1 = 5 > 5 - 1 = 4 
 	//            5 > 4 true
 	if (writeIndex + 1 > RAW_CAPACITY - 1) {//if writeIndex at end of arr
 		writeIndex = 0;//circle back to 0
 	}
 
-	if (writeIndex + 1 == readIndex || /*if both are 0*/ writeIndex + 1 < 1 && readIndex < 1) {//if write index was to increase would it end up on the same position as readIndex
-		
+	if (writeIndex + 1 == readIndex ) {//if write index was to increase would it end up on the same position as readIndex
 		return false;
 	}
 	else {//push val at the back of arr
@@ -113,7 +111,6 @@ bool tCircularQueue<T>::push(const T& val)
 		
 		return true;
 	}
-	//}
 }
 
 // returns true if it pops the value at the read index, otherwise false
@@ -152,7 +149,6 @@ bool tCircularQueue<T>::empty() const
 		return false;
 	}
 	
-
 }
 
 // returns the current number of elements pushed

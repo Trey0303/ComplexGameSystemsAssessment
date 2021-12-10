@@ -31,7 +31,6 @@ task* taskQueue::pop()
 
 		int curIndex = head;
 		int nextIndex = curIndex + 1;
-		//delete tasks[curIndex];//remove task from array
 		head = nextIndex;
 		
 		return tasks[head];

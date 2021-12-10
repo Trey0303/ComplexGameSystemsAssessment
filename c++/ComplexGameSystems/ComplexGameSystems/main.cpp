@@ -178,6 +178,5 @@ void doWork(taskQueue* queue)
         currentTask->execute();
         delete currentTask;
         currentTask = queue->pop();
-        std::cout << "removed task " << (int)currentTask << std::endl;
     }
 }

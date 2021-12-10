@@ -9,6 +9,9 @@ using namespace std;
 
 #include "CircularQueue.h"
 
+#include "incrementTask.h"
+
+
     //A container to store the created threads
 //stores any added message
 string messages[100];
@@ -18,6 +21,8 @@ bool keepRunning = true;
 int messageCount = 0;
 int printCount = 0;
 int maxValue = 100;
+
+const int TASK_CAPACITY = 100;
 
 void print()
 {
@@ -78,6 +83,8 @@ void consume(tCircularQueue<string>& queue) {
     }
 }
 
+void doWork(taskQueue* queue);
+
 int main()
 {
     //create empty text file
@@ -102,6 +109,10 @@ int main()
     keepRunning = false;
     printThread.join();
 
+    //
+    // multi-threaded implementation
+    //
+
     //circular queue
 
     //create a string circluar queue
@@ -119,5 +130,54 @@ int main()
     consumer.join();
     //copyPublisher.join();
 
+    //
+    // multi-threaded implementation
+    //
+
+    //
+    // global task queue implementation
+    //
+
+    // spawn as many threads as our hardware will support (minus 1 for the OS)
+    size_t threadCount = std::thread::hardware_concurrency() - 1;
+
+    // create an array of threads
+    std::thread** threads = new std::thread * [threadCount];
+
+    // populate the task queue
+    taskQueue tasks(TASK_CAPACITY);//create a taskqueue array
+    for (size_t i = 0; i < TASK_CAPACITY; ++i)//until task queue capacity reached
+    {
+        tasks.push(new incrementTask());//add a new task to taskqueue
+    }
+
+    // spin up threads to do the work
+    for (size_t i = 0; i < threadCount; ++i)
+    {
+        threads[i] = new std::thread(doWork, &tasks);
+    }
+
+    // wait for everything to finish
+    for (size_t i = 0; i < threadCount; ++i)
+    {
+        threads[i]->join();
+    }
+
+    //
+    // global task queue implementation
+    //
+
     return 0;
+}
+
+void doWork(taskQueue* queue)
+{
+    task* currentTask = queue->pop();
+    while (currentTask != nullptr)
+    {
+        currentTask->execute();
+        delete currentTask;
+        currentTask = queue->pop();
+        std::cout << "removed task " << (int)currentTask << std::endl;
+    }
 }

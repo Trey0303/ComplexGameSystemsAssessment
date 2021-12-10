@@ -57,30 +57,10 @@ tCircularQueue<T>::tCircularQueue()//initaializes array
 //template<typename T>
 //tCircularQueue<T>::tCircularQueue(const tCircularQueue& other)// copy constructor
 //{
-//	T* arrCopy = new T[other.arrSize];
 //}
 //
 //template<typename T>
 //tCircularQueue<T>& tCircularQueue<T>::operator =(const tCircularQueue& other) { // copy assignment operator
-//
-//	//delete old arr data
-//	while (readIndex != nullptr) {
-//		pop();
-//		
-//	}
-//	readIndex = 0;
-//	writeIndex = 0;
-//
-//	//overwrite with other data
-//	if (other.readIndex != nullptr) {
-//		for (int i = 0; i < other.arrSize; i++) {
-//			//	//copy all that is stored inside other array
-//			arr[i] = other[i];
-//			arrSize = other.arrSize;
-//		}
-//	}
-//
-//	return *this;
 //}
 
 // cleans up any dynamically allocated data

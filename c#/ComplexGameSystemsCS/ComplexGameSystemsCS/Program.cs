@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 
 /*Threading in C# follows a similar design pattern to that of in C++.
@@ -25,6 +26,10 @@ namespace ComplexGameSystemsCS
 
         static void Main(string[] args)
         {
+            //
+            //c# threads
+            //
+
             Console.WriteLine("Starting the thread...");
 
             //create a empty list of threads
@@ -46,11 +51,62 @@ namespace ComplexGameSystemsCS
                 threads[i].Join();
             }
             Console.WriteLine("The thread has completed!");
+
+            //
+            //c# threads
+            //
+
+            //
+            //c# task based Async
+            //
+
+            //// main is synchronous, but will block and wait for its asynchronous
+            // counterpart to finish
+
+            //call MainAsync() and block execution until this task finishes
+
+            //
+            //c# task based Async
+            //
+
+
+        }
+
+        // like a thread, this Task will not complete until we return from this
+        // method (whether explicitly with a `return` statement or implicitly by
+        // reaching the end of this method)
+        static async Task MainAsync()
+        {
+            Console.WriteLine("MainAsync starting...");
+
+            // task will halt execution until this is done, but not block execution on this thread
+            // (it'll do something else instead)
+
+            Console.WriteLine("MainAsync ending...");
+        }
+    }
+
+    class Worker
+    {
+        // note the use of the async keyword here
+        public async Task<string> DoWork(int delay)
+        {
+            Console.WriteLine("Worker Task starting...");
+
+            // task will halt execution until this is done
+            // (the delay is the "work" we're doing)
+            //
+            // ... but not halt execution on the thread (it'll do something else instead)
+
+            Console.WriteLine("Worker Task finishing...");
+
+            // this will be wrapped into a Task<TResult> object for return (where TResult is string)
+            return "";
         }
     }
 }
 
-//REFERENCE
+//REFERENCE - c# threads
 //
 //// custom object for passing data to threads
 //class PrintData

@@ -164,7 +164,9 @@ int main()
         threads[i]->join();
     }
 
-    int finalValue = incrementTask::getVal();
+    int finalValue = incrementTask::getVal();//get finalValue of takes completed
+
+    std::cout << "Number of tasks executed and completed: " << finalValue << std::endl;
     //assert(finalValue == TASK_CAPACITY);
 
     //
@@ -176,11 +178,11 @@ int main()
 
 void doWork(taskQueue* queue)
 {
-    task* currentTask = queue->pop();
-    while (currentTask != nullptr)
+    task* currentTask = queue->pop();//take a task from array of tasks
+    while (currentTask != nullptr)//if there is a task to be completed
     {
-        currentTask->execute();
-        delete currentTask;
-        currentTask = queue->pop();
+        currentTask->execute();//does task
+        delete currentTask;//deletes task
+        currentTask = queue->pop();//grab another task from array of tasks
     }
 }

@@ -5,6 +5,7 @@
 #include "logger.h"
 #include <fstream>
 #include <iostream>
+#include <cassert>
 using namespace std;
 
 #include "CircularQueue.h"
@@ -162,6 +163,9 @@ int main()
     {
         threads[i]->join();
     }
+
+    int finalValue = incrementTask::getVal();
+    //assert(finalValue == TASK_CAPACITY);
 
     //
     // global task queue implementation

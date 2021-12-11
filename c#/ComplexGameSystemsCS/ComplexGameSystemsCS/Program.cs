@@ -64,6 +64,7 @@ namespace ComplexGameSystemsCS
             // counterpart to finish
 
             //call MainAsync() and block execution until this task finishes
+            MainAsync().Wait();
 
             //
             //c# task based Async
@@ -72,6 +73,9 @@ namespace ComplexGameSystemsCS
 
         }
 
+
+        //REFERENCE task based Async
+
         // like a thread, this Task will not complete until we return from this
         // method (whether explicitly with a `return` statement or implicitly by
         // reaching the end of this method)
@@ -79,8 +83,13 @@ namespace ComplexGameSystemsCS
         {
             Console.WriteLine("MainAsync starting...");
 
+            Worker worker = new Worker();
+            Console.WriteLine("MainAsync halting and waiting for worker to complete...");
             // task will halt execution until this is done, but not block execution on this thread
             // (it'll do something else instead)
+            string result = await worker.DoWork(1000);
+            Console.WriteLine("MainAsync resuming after worker completed.");
+            Console.WriteLine($"Task Result: {result}");
 
             Console.WriteLine("MainAsync ending...");
         }
@@ -97,11 +106,13 @@ namespace ComplexGameSystemsCS
             // (the delay is the "work" we're doing)
             //
             // ... but not halt execution on the thread (it'll do something else instead)
+            await Task.Delay(delay);
+            Console.WriteLine("Hello Async!");
 
             Console.WriteLine("Worker Task finishing...");
 
             // this will be wrapped into a Task<TResult> object for return (where TResult is string)
-            return "";
+            return "Completed";
         }
     }
 }

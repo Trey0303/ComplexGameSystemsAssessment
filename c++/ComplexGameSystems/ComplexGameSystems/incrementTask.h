@@ -30,8 +30,8 @@ public:
 class taskQueue {
     task** tasks;               //array of tasks
     size_t taskCapacityMax;        //tracks total capacity of the array of tasks
-    std::atomic<size_t> head;   //controls where the latest task is
-    std::atomic<size_t> tail;   //controls where the oldest task is
+    std::atomic<size_t> head;   //controls where the oldest task is
+    std::atomic<size_t> tail;   //controls where the latest task is
 
     std::mutex queueAccess;     //prevent accidentally two threads from popping/retrieving the same task 
                                 //at the same time

@@ -1,5 +1,7 @@
 #include "incrementTask.h"
 
+#include <cassert>
+
 // declares and defines (thus allocating memory for) the `val` static member variable
 std::atomic<int> incrementTask::val = 0;
 
@@ -24,6 +26,8 @@ task* taskQueue::pop()
 {
 	queueAccess.lock();
 	if (isEmpty()) {
+		queueAccess.unlock();
+
 		//nothing left to return
 		return nullptr;
 	}
@@ -33,7 +37,9 @@ task* taskQueue::pop()
 		int nextIndex = curIndex + 1;
 		head = nextIndex;
 		
-		return tasks[head];
+		queueAccess.unlock();
+
+		return tasks[curIndex];
 
 	}
 	queueAccess.unlock();
@@ -44,6 +50,7 @@ void taskQueue::push(task* t)
 	queueAccess.lock();
 	if (!isFull()) {
 		int curIndex = tail;
+		assert(curIndex < taskCapacityMax);	// index should always be less than taskCapacityMax
 		int nextIndex = curIndex + 1;
 		tasks[curIndex] = t;//place task into tasks array
 		tail = nextIndex;//move tail over to the next available index

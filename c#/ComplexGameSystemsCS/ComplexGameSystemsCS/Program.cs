@@ -27,7 +27,7 @@ namespace ComplexGameSystemsCS
         static void Main(string[] args)
         {
             //
-            //c# threads
+            //c# threads BEGIN
             //
 
             Console.WriteLine("Starting the thread...");
@@ -53,11 +53,11 @@ namespace ComplexGameSystemsCS
             Console.WriteLine("The thread has completed!");
 
             //
-            //c# threads
+            //c# threads END
             //
 
             //
-            //c# task based Async
+            //c# task based Async BEGIN
             //
 
             //// main is synchronous, but will block and wait for its asynchronous
@@ -67,7 +67,7 @@ namespace ComplexGameSystemsCS
             MainAsync().Wait();
 
             //
-            //c# task based Async
+            //c# task based Async END
             //
 
 

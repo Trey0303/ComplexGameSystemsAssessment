@@ -6,6 +6,7 @@ using UnitySampleAssets.CrossPlatformInput;
 public class PlayerMovement : NetworkBehaviour
 {
     public GameObject cameraPrefab;
+    PlayerHealth playerHealth;                  // Reference to the player's health.
 
     //network stuff
     private NetworkVariable<Vector3> networkPosition;
@@ -33,6 +34,8 @@ public class PlayerMovement : NetworkBehaviour
             CameraFollow follow = myCam.GetComponent<CameraFollow>();
             //make camera target player
             follow.target = this.gameObject.transform;
+
+            playerHealth = this.GetComponent<PlayerHealth>();
         }
     }
 
@@ -52,22 +55,26 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (IsOwner)
         {
-            // Store the input axes.
-            float h = CrossPlatformInputManager.GetAxisRaw("Horizontal");
-            float v = CrossPlatformInputManager.GetAxisRaw("Vertical");
+            if (!playerHealth.isDead)
+            {
+                // Store the input axes.
+                float h = CrossPlatformInputManager.GetAxisRaw("Horizontal");
+                float v = CrossPlatformInputManager.GetAxisRaw("Vertical");
 
-            // Move the player around the scene.
-            Move(h, v);
+                // Move the player around the scene.
+                Move(h, v);
 
-            // Turn the player to face the mouse cursor.
-            Turning();
+                // Turn the player to face the mouse cursor.
+                Turning();
 
-            // Animate the player.
-            Animating(h, v);
+                // Animate the player.
+                Animating(h, v);
 
-            //update position
-            OwnerSetPotionServerRpc(this.transform.position);
-            OwnerSetRotationServerRpc(this.transform.rotation);
+                //update position
+                OwnerSetPotionServerRpc(this.transform.position);
+                OwnerSetRotationServerRpc(this.transform.rotation);
+
+            }
 
         }
         else

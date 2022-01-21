@@ -65,6 +65,11 @@ public class EnemyAttack : MonoBehaviour
             // ... tell the animator the player is dead.
             anim.SetTrigger ("PlayerDead");
         }
+
+        if (playerHealth.isDead == true)
+        {
+            this.enabled = false;
+        }
     }
 
 

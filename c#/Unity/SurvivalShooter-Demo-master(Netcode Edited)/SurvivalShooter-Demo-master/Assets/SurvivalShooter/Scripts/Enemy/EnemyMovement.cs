@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//using Unity.Netcode;
+
 public class EnemyMovement : MonoBehaviour
 {
     public Transform player;               // Reference to the player's position.
@@ -8,18 +10,24 @@ public class EnemyMovement : MonoBehaviour
     public EnemyHealth enemyHealth;        // Reference to this enemy's health.
     public UnityEngine.AI.NavMeshAgent nav;               // Reference to the nav mesh agent.
 
+    //private NetworkVariable<Vector3> networkEnemyPosition;
+
 
     void Awake ()
     {
         // Set up the references.
-        player = GameObject.FindGameObjectWithTag ("Player").transform;
-
-        if(player != null)//if player is found
+        if (GameObject.FindGameObjectWithTag("Player") != null)
         {
-            playerHealth = player.GetComponent <PlayerHealth> ();
-            enemyHealth = GetComponent <EnemyHealth> ();
-            nav = GetComponent <UnityEngine.AI.NavMeshAgent> ();
-            //nav.enabled = true;
+            player = GameObject.FindGameObjectWithTag ("Player").transform;
+
+            if(player != null)//if player is found
+            {
+                playerHealth = player.GetComponent <PlayerHealth> ();
+                enemyHealth = GetComponent <EnemyHealth> ();
+                nav = GetComponent <UnityEngine.AI.NavMeshAgent> ();
+                //nav.enabled = true;
+            }
+
         }
         //else
         //{
@@ -30,32 +38,57 @@ public class EnemyMovement : MonoBehaviour
 
     void Update ()
     {
-        if (player != null)//if player spawned
-        {
-            // If the enemy and the player have health left...
-            if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
+        //if (IsOwner)
+        //{
+            if (player != null)//if player spawned
             {
-                // ... set the destination of the nav mesh agent to the player.
-                nav.SetDestination (player.position);
+                // If the enemy and the player have health left...
+                if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
+                {
+                    // ... set the destination of the nav mesh agent to the player.
+                    nav.SetDestination(player.position);
+                }
+                // Otherwise...
+                else
+                {
+                    // ... disable the nav mesh agent.
+                    nav.enabled = false;
+                }
+
             }
-            // Otherwise...
             else
-            {
-                // ... disable the nav mesh agent.
-                nav.enabled = false;
+            {//try to find player again
+                player = GameObject.FindGameObjectWithTag("Player").transform;
+
+                if (player != null)
+                {
+                    playerHealth = player.GetComponent<PlayerHealth>();
+                    enemyHealth = GetComponent<EnemyHealth>();
+                    nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
+                    //nav.enabled = true;
+                }
             }
 
-        }
-        else {//try to find player again
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-
-            if(player != null)
+            //if player is dead then disable this script
+            if (playerHealth.isDead == true)
             {
-                playerHealth = player.GetComponent<PlayerHealth>();
-                enemyHealth = GetComponent<EnemyHealth>();
-                nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
-                //nav.enabled = true;
+                this.enabled = false;
             }
-        }
+
+            //OwnerSetPotionServerRpc(this.transform.position);
+        //}
+        //else
+        //{
+        //    //this.transform.position = networkEnemyPosition.Value;
+        //}
+
+        
     }
+
+    ////update network position with current position
+    //[ServerRpc(Delivery = RpcDelivery.Unreliable)]
+    //void OwnerSetPotionServerRpc(Vector3 newPos)
+    //{
+    //    networkEnemyPosition.Value = newPos;
+    //}
 }

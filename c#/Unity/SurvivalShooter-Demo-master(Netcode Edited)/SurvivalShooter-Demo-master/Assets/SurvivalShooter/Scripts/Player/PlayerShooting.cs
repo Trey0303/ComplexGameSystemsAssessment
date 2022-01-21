@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using UnitySampleAssets.CrossPlatformInput;
 
-public class PlayerShooting : MonoBehaviour
+using Unity.Netcode;
+
+public class PlayerShooting : NetworkBehaviour
 {
     public int damagePerShot = 20;                  // The damage inflicted by each bullet.
     public float timeBetweenBullets = 0.15f;        // The time between each shot.
@@ -18,6 +20,10 @@ public class PlayerShooting : MonoBehaviour
     Light gunLight;                                 // Reference to the light component.
     public Light faceLight;								// Duh
     float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
+
+    //network stuff
+    private NetworkVariable<bool> networkPlayerShooting;
+    private bool playerShooting;
 
 
     void Awake ()
@@ -40,25 +46,40 @@ public class PlayerShooting : MonoBehaviour
         timer += Time.deltaTime;
 
 #if !MOBILE_INPUT
-        // If the Fire1 button is being press and it's time to fire...
-        if(Input.GetButton ("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
+
+        if (IsOwner) 
         {
-            // ... shoot the gun.
-            Shoot ();
+            // If the Fire1 button is being press and it's time to fire...
+            if(Input.GetButton ("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
+            {
+                networkPlayerShooting.Value = true;
+                // ... shoot the gun.
+                Shoot ();
+
+            }
+            
+        
+    #else
+            // If there is input on the shoot direction stick and it's time to fire...
+            if ((CrossPlatformInputManager.GetAxisRaw("Mouse X") != 0 || CrossPlatformInputManager.GetAxisRaw("Mouse Y") != 0) && timer >= timeBetweenBullets)
+            {
+                // ... shoot the gun
+                Shoot();
+            }
+    #endif
+            // If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
+            if(timer >= timeBetweenBullets * effectsDisplayTime)
+            {
+                // ... disable the effects.
+                DisableEffects ();
+                networkPlayerShooting.Value = false;
+            }
+
         }
-#else
-        // If there is input on the shoot direction stick and it's time to fire...
-        if ((CrossPlatformInputManager.GetAxisRaw("Mouse X") != 0 || CrossPlatformInputManager.GetAxisRaw("Mouse Y") != 0) && timer >= timeBetweenBullets)
+        else
         {
-            // ... shoot the gun
-            Shoot();
-        }
-#endif
-        // If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
-        if(timer >= timeBetweenBullets * effectsDisplayTime)
-        {
-            // ... disable the effects.
-            DisableEffects ();
+            networkPlayerShooting.Value = false;
+
         }
     }
 

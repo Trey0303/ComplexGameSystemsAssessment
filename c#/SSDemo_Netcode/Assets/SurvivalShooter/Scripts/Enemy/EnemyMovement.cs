@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Unity.Netcode;
 
 //using Unity.Netcode;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : NetworkBehaviour
 {
     public Transform player;               // Reference to the player's position.
     public PlayerHealth playerHealth;      // Reference to the player's health.
     public EnemyHealth enemyHealth;        // Reference to this enemy's health.
     public UnityEngine.AI.NavMeshAgent nav;               // Reference to the nav mesh agent.
 
-    //private NetworkVariable<Vector3> networkEnemyPosition;
+
+    private NetworkVariable<Vector3> networkEnemyPosition;
 
 
     void Awake ()
@@ -38,7 +40,7 @@ public class EnemyMovement : MonoBehaviour
 
     void Update ()
     {
-        //if (IsOwner)
+        //if (IsServer)
         //{
             if (player != null)//if player spawned
             {
@@ -75,19 +77,19 @@ public class EnemyMovement : MonoBehaviour
                 this.enabled = false;
             }
 
-            //OwnerSetPotionServerRpc(this.transform.position);
+            //OwnerSetPotionClientRpc(this.transform.position);
         //}
         //else
         //{
-        //    //this.transform.position = networkEnemyPosition.Value;
+        //    this.transform.position = networkEnemyPosition.Value;
         //}
 
         
     }
 
-    ////update network position with current position
-    //[ServerRpc(Delivery = RpcDelivery.Unreliable)]
-    //void OwnerSetPotionServerRpc(Vector3 newPos)
+    //update network position with current position
+    //[ClientRpc(Delivery = RpcDelivery.Unreliable)]
+    //void OwnerSetPotionClientRpc(Vector3 newPos)
     //{
     //    networkEnemyPosition.Value = newPos;
     //}

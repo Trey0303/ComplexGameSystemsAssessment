@@ -13,13 +13,21 @@ public class EnemyManager : MonoBehaviour
 
     void Start ()
     {
+        DataManager.enemyCount = 0;
+
         Debug.Log(playerHealth.currentHealth);
         Debug.Log(player);
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
         if (playerHealth != null && player != null)
         {
-            Spawn();
-            timer = spawnTime;
+            if (DataManager.enemyCount < 30)
+            {
+                DataManager.enemyCount = DataManager.enemyCount + 1;
+                //Debug.Log(DataManager.enemyCount);
+                Spawn();
+                timer = spawnTime;
+
+            }
             //InvokeRepeating("Spawn", spawnTime, spawnTime);
 
         }
@@ -51,8 +59,13 @@ public class EnemyManager : MonoBehaviour
 
             if (timer <= 0)// once the timer finishes, spawn an enemy and reset the timer
             {
-                Spawn();
-                timer = spawnTime;
+                if (DataManager.enemyCount < 30)
+                {
+                    DataManager.enemyCount = DataManager.enemyCount + 1;
+                    Spawn();
+                    timer = spawnTime;
+                    //Debug.Log(DataManager.enemyCount);
+                }
             }
 
         }

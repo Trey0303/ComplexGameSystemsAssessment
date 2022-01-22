@@ -23,6 +23,7 @@ public class PlayerShooting : NetworkBehaviour
 
     //network stuff
     private NetworkVariable<bool> networkPlayerShooting;
+
     private bool playerShooting;
 
 
@@ -47,15 +48,33 @@ public class PlayerShooting : NetworkBehaviour
 
 #if !MOBILE_INPUT
 
+        // if we are the owner, do the input processing
         if (IsOwner) 
         {
-            // If the Fire1 button is being press and it's time to fire...
-            if(Input.GetButton ("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
+            // when we start clicking, we need to tell the server to start firing
+            if (Input.GetButtonDown("Fire1"))
             {
-                networkPlayerShooting.Value = true;
-                // ... shoot the gun.
-                Shoot ();
+                // do the shooting
+                OwnerSetPotionServerRpc(true);
+            }
+            else if (Input.GetButtonUp("Fire1"))
+            {
+                // stop the shooting
+                OwnerSetPotionServerRpc(false);
+            }
+            // when we stop clicking, we need to tell the server to stop firing
+            // the server needs to process our fire request and tell us that we can fire
+            // all clients need to update this character to show the firing effects
 
+            // If the Fire1 button is being press and it's time to fire...
+            if (Input.GetButton ("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
+            {
+                // playerShooting = true;
+                // ... shoot the gun.
+                
+                // Shoot ();
+
+                //OwnerSetPotionServerRpc(playerShooting);
             }
             
         
@@ -67,20 +86,43 @@ public class PlayerShooting : NetworkBehaviour
                 Shoot();
             }
     #endif
-            // If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
-            if(timer >= timeBetweenBullets * effectsDisplayTime)
-            {
-                // ... disable the effects.
-                DisableEffects ();
-                networkPlayerShooting.Value = false;
-            }
-
+            //// If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
+            //if(timer >= timeBetweenBullets * effectsDisplayTime)
+            //{
+            //    playerShooting = false;
+            //    // ... disable the effects.
+            //    DisableEffects ();
+            //    OwnerSetPotionServerRpc(playerShooting);
+            //}
         }
-        else
+
+        // process shooting
+        // do we need to play the fx for shooting?
+
+        // if we're trying to shoot
+        // - we can only shoot every .15 seconds
+        // - the shoot effect needs to disappear .03 seconds after the shot
+
+        if(networkPlayerShooting.Value )
         {
-            networkPlayerShooting.Value = false;
-
+            Shoot();
         }
+        //if       player request to shoot    &&  timer is greater than or equal to .03
+        if (networkPlayerShooting.Value && timer >= /*.15*/timeBetweenBullets * /*.2*/effectsDisplayTime/*.15 * .2 = .03*/)
+        {
+            DisableEffects();
+        }
+        if (!networkPlayerShooting.Value)
+        {
+            DisableEffects();
+        }
+    }
+
+    [ServerRpc(Delivery = RpcDelivery.Reliable)]
+    void OwnerSetPotionServerRpc(bool newBool)
+    {
+        networkPlayerShooting.Value = newBool;
+        Debug.Log("Player is now shooting? " + (newBool ? "Yes" : "No"));
     }
 
 
@@ -95,49 +137,56 @@ public class PlayerShooting : NetworkBehaviour
 
     void Shoot ()
     {
-        // Reset the timer.
-        timer = 0f;
-
-        // Play the gun shot audioclip.
-        gunAudio.Play ();
-
-        // Enable the lights.
-        gunLight.enabled = true;
-        faceLight.enabled = true;
-
-        // Stop the particles from playing if they were, then start the particles.
-        gunParticles.Stop ();
-        gunParticles.Play ();
-
-        // Enable the line renderer and set it's first position to be the end of the gun.
-        gunLine.enabled = true;
-        gunLine.SetPosition (0, transform.position);
-
-        // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
-        shootRay.origin = transform.position;
-        shootRay.direction = transform.forward;
-
-        // Perform the raycast against gameobjects on the shootable layer and if it hits something...
-        if(Physics.Raycast (shootRay, out shootHit, range, shootableMask))
+        if (timer >= timeBetweenBullets)
         {
-            // Try and find an EnemyHealth script on the gameobject hit.
-            EnemyHealth enemyHealth = shootHit.collider.GetComponent <EnemyHealth> ();
+            // Reset the timer.
+            timer = 0f;
 
-            // If the EnemyHealth component exist...
-            if(enemyHealth != null)
+            // Play the gun shot audioclip.
+            gunAudio.Play();
+
+            // Enable the lights.
+            gunLight.enabled = true;
+            faceLight.enabled = true;
+
+            // Stop the particles from playing if they were, then start the particles.
+            gunParticles.Stop();
+            gunParticles.Play();
+
+            // Enable the line renderer and set it's first position to be the end of the gun.
+            gunLine.enabled = true;
+            gunLine.SetPosition(0, transform.position);
+
+            // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
+            shootRay.origin = transform.position;
+            shootRay.direction = transform.forward;
+            // Perform the raycast against gameobjects on the shootable layer and if it hits something...
+            if(Physics.Raycast (shootRay, out shootHit, range, shootableMask))
             {
-                // ... the enemy should take damage.
-                enemyHealth.TakeDamage (damagePerShot, shootHit.point);
-            }
+                // Try and find an EnemyHealth script on the gameobject hit.
+                EnemyHealth enemyHealth = shootHit.collider.GetComponent <EnemyHealth> ();
 
-            // Set the second position of the line renderer to the point the raycast hit.
-            gunLine.SetPosition (1, shootHit.point);
+                // If the EnemyHealth component exist...
+                if(enemyHealth != null)
+                {
+                    // ... the enemy should take damage.
+                    enemyHealth.TakeDamage (damagePerShot, shootHit.point);
+                }
+
+                // Set the second position of the line renderer to the point the raycast hit.
+                gunLine.SetPosition (1, shootHit.point);
+            }
+            // If the raycast didn't hit anything on the shootable layer...
+            else
+            {
+                // ... set the second position of the line renderer to the fullest extent of the gun's range.
+                gunLine.SetPosition (1, shootRay.origin + shootRay.direction * range);
+            }
         }
-        // If the raycast didn't hit anything on the shootable layer...
-        else
-        {
-            // ... set the second position of the line renderer to the fullest extent of the gun's range.
-            gunLine.SetPosition (1, shootRay.origin + shootRay.direction * range);
-        }
+
+        
+
+
+        
     }
 }

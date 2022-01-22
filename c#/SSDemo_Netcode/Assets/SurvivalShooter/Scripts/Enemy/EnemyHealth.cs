@@ -85,6 +85,10 @@ public class EnemyHealth : MonoBehaviour
         // Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).
         enemyAudio.clip = deathClip;
         enemyAudio.Play ();
+
+        DataManager.enemyCount = DataManager.enemyCount - 1;
+        //Debug.Log(DataManager.enemyCount);
+
     }
 
 

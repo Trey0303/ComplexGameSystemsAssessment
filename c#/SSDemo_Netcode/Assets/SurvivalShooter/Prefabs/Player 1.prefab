@@ -5365,7 +5365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePerShot: 20
-  timeBetweenBullets: 0.12
+  timeBetweenBullets: 0.15
   range: 100
   faceLight: {fileID: 7675708326449782972}
 --- !u!108 &7675708327032315199
@@ -5532,15 +5532,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544f2064df03e95419b4a5147c506b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
-  currentHealth: 100
+  startingHealth: 10000
+  currentHealth: 10000
   healthSlider: {fileID: 7382682528365959142, guid: e6ff59150bfda844f9a6665dbe92d178,
     type: 3}
+  healthDisplay: {fileID: 0}
   damageImage: {fileID: 5453673613762945821, guid: 579801bc9ad21ce4d81866815eace813,
     type: 3}
   deathClip: {fileID: 8300000, guid: d36a393bca4582043982db9089e1694f, type: 3}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
+  isDead: 0
 --- !u!136 &7675708327259817468
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -5532,12 +5532,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544f2064df03e95419b4a5147c506b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 10000
-  currentHealth: 10000
+  startingHealth: 100
+  currentHealth: 100
   healthSlider: {fileID: 7382682528365959142, guid: e6ff59150bfda844f9a6665dbe92d178,
     type: 3}
   healthDisplay: {fileID: 0}
-  damageImage: {fileID: 5453673613762945821, guid: 579801bc9ad21ce4d81866815eace813,
+  damageImage: {fileID: 48046075987538829, guid: e1e25c53587a47149a70bf929ef27721,
     type: 3}
   deathClip: {fileID: 8300000, guid: d36a393bca4582043982db9089e1694f, type: 3}
   flashSpeed: 5

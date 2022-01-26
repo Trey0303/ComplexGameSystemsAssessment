@@ -60,15 +60,20 @@ public class EnemyMovement : NetworkBehaviour
             }
             else
             {//try to find player again
-                player = GameObject.FindGameObjectWithTag("Player").transform;
-
-                if (player != null)
+                if(GameObject.FindGameObjectWithTag("Player").transform != null)
                 {
-                    playerHealth = player.GetComponent<PlayerHealth>();
-                    enemyHealth = GetComponent<EnemyHealth>();
-                    nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
-                    //nav.enabled = true;
+                    player = GameObject.FindGameObjectWithTag("Player").transform;
+
+                    if (player != null)
+                    {
+                        playerHealth = player.GetComponent<PlayerHealth>();
+                        enemyHealth = GetComponent<EnemyHealth>();
+                        nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
+                        //nav.enabled = true;
+                    }
                 }
+
+
             }
 
             //if player is dead then disable this script

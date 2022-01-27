@@ -44,7 +44,7 @@ public class SkillCreator : MonoBehaviour
 
     public void CreateSkill()
     {
-        Debug.Log("Create skill");
+        //Debug.Log("Create skill");
         //CreateSkill(name, type, damage, range, max_level);
     }
 
@@ -58,7 +58,7 @@ public class SkillCreator : MonoBehaviour
 
     public void DeleteSkill()
     {
-        Debug.Log("Delete skill");
+        //Debug.Log("Delete skill");
         DeleteSkill(name);
     }
 
@@ -72,7 +72,7 @@ public class SkillCreator : MonoBehaviour
 
     public void EditSkill()
     {
-        Debug.Log("Edit skill");
+        //Debug.Log("Edit skill");
         EditSkill(name);
     }
 

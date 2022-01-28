@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEngine.UI;
 
 //[System.Serializable]
-public class SkillData
-{
+//public class SkillData
+//{
 //    public string name;
 //    public string type;
 //    public int damage;
@@ -85,32 +85,32 @@ public class SkillData
 
 
 //    }
-    
+
 
 //    void LevelUpSkill()
 //    {
 //        //LevelUpSkill(exp);
 //    }
 
-    //increase level of skill if conditions are met
-    //void LevelUpSkill(int exp)
-    //{
-    //    check if skill has enough experience to level up
-    //    if (exp >= maxExp)
-    //    {
-    //        //if so then increase level
-    //        skillLvl = SkillData.skillLvl + 1;
+//    increase level of skill if conditions are met
+//    void LevelUpSkill(int exp)
+//    {
+//        check if skill has enough experience to level up
+//        if (exp >= maxExp)
+//        {
+//            //if so then increase level
+//            skillLvl = SkillData.skillLvl + 1;
 
-    //        //increase skill damage
-    //        myDamage = myDamage + (skillLvl - 1) * damageStep;
+//            //increase skill damage
+//            myDamage = myDamage + (skillLvl - 1) * damageStep;
 
 
-    //        if (exp > maxExp)
-    //        {
-    //            //check if there is any leftover experience to add after level up
-    //            exp = exp - maxExp;
-    //            maxExp = maxExp + (skillLvl - 1) * maxExpStep;
-    //        }
-    //    }
-    //}
-}
+//            if (exp > maxExp)
+//            {
+//                //check if there is any leftover experience to add after level up
+//                exp = exp - maxExp;
+//                maxExp = maxExp + (skillLvl - 1) * maxExpStep;
+//            }
+//        }
+//    }
+//}

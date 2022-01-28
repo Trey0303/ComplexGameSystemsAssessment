@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Flame Slash
   damage: 12
-  maxLevel: 0
-  cost: 0
+  maxLevel: 99
+  cost: 18

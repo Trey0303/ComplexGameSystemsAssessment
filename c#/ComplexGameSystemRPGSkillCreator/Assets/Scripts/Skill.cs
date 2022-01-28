@@ -16,7 +16,7 @@ public class Skill : MonoBehaviour
     void Start()
     {
         maxExp = 5;
-        Debug.Log(skillData.damage);
+        //Debug.Log(skillData.damage);
 
 
     }

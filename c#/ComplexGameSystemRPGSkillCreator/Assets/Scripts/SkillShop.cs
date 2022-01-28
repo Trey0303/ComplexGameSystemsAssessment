@@ -7,6 +7,14 @@ public class SkillShop : MonoBehaviour
 {
     public List<SkillObj> shopList;
 
+    public List<Text> names;
+
+    public List<Text> damage;
+
+    public List<Text> cost;
+
+    public List<Text> itemsOwn;
+
     public Button openShopMenu;
     public Button close;
 
@@ -25,17 +33,31 @@ public class SkillShop : MonoBehaviour
         PlayerVariableData.money = 0;
         currentMoneyCount = 0;
         shopMenu = GameObject.Find("ShopInventory");
+
+        //assign name, damage, cost to shop list
+        for(int i = 0; i < shopList.Count; i++)
+        {
+            names[i].text = shopList[i].skillName;
+            damage[i].text = shopList[i].damage + "";
+            cost[i].text = shopList[i].cost + "";
+            itemsOwn[i].text = "Not Own";
+        }
+
+        //hide shop at startup
         if(shopMenu != null)
         {
             shopMenu.SetActive(false);
             openShopMenu.gameObject.SetActive(true);
             close.gameObject.SetActive(false);
         }
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        //if player lost or earned money then update ui to reflect that
         if(PlayerVariableData.money != currentMoneyCount)
         {
             currentMoneyCount = PlayerVariableData.money;
@@ -68,9 +90,6 @@ public class SkillShop : MonoBehaviour
     {
 
 
-        if(PlayerVariableData.money >= shopList[1].cost)
-        {
-
-        }
+        
     }
 }

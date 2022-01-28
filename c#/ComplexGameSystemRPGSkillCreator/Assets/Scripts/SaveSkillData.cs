@@ -54,7 +54,7 @@ public class SaveSkillData : MonoBehaviour
         currentType = data.type;
         currentDamage = data.damage;
         currentRange = data.range;
-        currentMax_level = data.max_level;
+        currentMax_level = data.maxLevel;
         currentSkillLvl = data.skillLvl;
 
         Debug.Log(data.name);

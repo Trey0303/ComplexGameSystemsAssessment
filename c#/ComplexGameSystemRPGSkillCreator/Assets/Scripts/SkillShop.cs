@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SkillShop : MonoBehaviour
@@ -14,6 +15,9 @@ public class SkillShop : MonoBehaviour
     public List<Text> cost;
 
     public List<Text> itemsOwn;
+
+    public List<Button> buyButtons;
+    public static GameObject selectedButton;
 
     public Button openShopMenu;
     public Button close;
@@ -35,13 +39,27 @@ public class SkillShop : MonoBehaviour
         shopMenu = GameObject.Find("ShopInventory");
 
         //assign name, damage, cost to shop list
-        for(int i = 0; i < shopList.Count; i++)
+        for (int i = 0; i < shopList.Count; i++)
         {
             names[i].text = shopList[i].skillName;
             damage[i].text = shopList[i].damage + "";
             cost[i].text = shopList[i].cost + "";
             itemsOwn[i].text = "Not Own";
+            
+            //if player cant afford skill
+            //if(PlayerVariableData.money < shopList[i].cost)
+            //{
+            //    //Debug.Log("NOT ENOUGH MONEY FOR THIS SKILL");
+            //    //cb.normalColor = unavailableColor;
+            //    buyButtons[i].interactable = false;
+            //}
+            //else
+            //{
+            //    buyButtons[i].interactable = true;
+            //}
         }
+
+
 
         //hide shop at startup
         if(shopMenu != null)
@@ -64,6 +82,27 @@ public class SkillShop : MonoBehaviour
             //Debug.Log("money: " + PlayerVariableData.money);
             //Debug.Log(currentMoneyCount);
             moneyText.text = currentMoneyCount + "";
+
+            for (int i = 0; i < shopList.Count; i++)
+            {
+                names[i].text = shopList[i].skillName;
+                damage[i].text = shopList[i].damage + "";
+                cost[i].text = shopList[i].cost + "";
+                itemsOwn[i].text = "Not Own";
+
+                //if player cant afford skill
+                //ColorBlock cb = buyButtons[i].colors;
+                if (PlayerVariableData.money < shopList[i].cost)
+                {
+                    //Debug.Log("NOT ENOUGH MONEY FOR THIS SKILL");
+                    //cb.normalColor = unavailableColor;
+                    buyButtons[i].interactable = false;
+                }
+                else
+                {
+                    buyButtons[i].interactable = true;
+                }
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -86,10 +125,42 @@ public class SkillShop : MonoBehaviour
         close.gameObject.SetActive(false);
     }
 
-    void Buy()
+    public void Buy()
     {
+        //gets gameobject from currenly selected button
+        selectedButton = EventSystem.current.currentSelectedGameObject;
+
+        Debug.Log(selectedButton.name);
+
+        for(int i = 0; i < shopList.Count; i++)
+        {
+            //Debug.Log("Selected Button: " + selectedButton.name);
+            //Debug.Log("Button List: " + i);
+            
+            //if selected button is found in button list
+            if(selectedButton == buyButtons[i].gameObject)
+            {
+                //check if player has enough money
+                if(PlayerVariableData.money >= shopList[i].cost)
+                {
+                   //buy item
+                   PlayerVariableData.money = PlayerVariableData.money - shopList[i].cost;
+                   itemsOwn[i].text = "Own";
+                    Debug.Log(itemsOwn[i].text);
+                   buyButtons[i].gameObject.SetActive(false);
+
+                }
+                
+
+
+            }
+        }
+
+
 
 
         
     }
+
+
 }

@@ -39,6 +39,7 @@ public class Skill : MonoBehaviour
 
     void LevelUpSkill()
     {
+        //check if skill has enough exp to level up
         if (exp >= maxExp)
         {
             //if so then increase level
@@ -47,12 +48,14 @@ public class Skill : MonoBehaviour
             //increase skill damage
             damage = skillData.damage + (level - 1) * 3;
 
-
+            //save any extra exp 
             if (exp > maxExp)
             {
                 //check if there is any leftover experience to add after level up
                 exp = exp - maxExp;
             }
+
+            //increase the maxExp cap by 5
             maxExp = maxExp + (level - 1) * 5;
 
         }

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
+    //change this to a list for ability to add more skills to player
     public SkillObj skillData;
 
 
+    //might need to change these to reflect on mulitiple different skills
     int exp;
     int level;
     float damage;
@@ -16,7 +18,6 @@ public class Skill : MonoBehaviour
     void Start()
     {
         maxExp = 5;
-        //Debug.Log(skillData.damage);
 
 
     }

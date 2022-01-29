@@ -29,6 +29,7 @@ public class Skill : MonoBehaviour
             exp = exp + 1;
             LevelUpSkill();
             Debug.Log("exp: " + exp);
+            Debug.Log("maxExp: " + maxExp);
             Debug.Log("lvl: " + level);
             Debug.Log("dmg: " + damage);
 
@@ -53,6 +54,10 @@ public class Skill : MonoBehaviour
             {
                 //check if there is any leftover experience to add after level up
                 exp = exp - maxExp;
+            }
+            else
+            {
+                exp = 0;
             }
 
             //increase the maxExp cap by 5

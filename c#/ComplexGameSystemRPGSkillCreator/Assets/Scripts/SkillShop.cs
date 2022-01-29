@@ -45,18 +45,18 @@ public class SkillShop : MonoBehaviour
             damage[i].text = shopList[i].damage + "";
             cost[i].text = shopList[i].cost + "";
             itemsOwn[i].text = "Not Own";
-            
+
             //if player cant afford skill
-            //if(PlayerVariableData.money < shopList[i].cost)
-            //{
-            //    //Debug.Log("NOT ENOUGH MONEY FOR THIS SKILL");
-            //    //cb.normalColor = unavailableColor;
-            //    buyButtons[i].interactable = false;
-            //}
-            //else
-            //{
-            //    buyButtons[i].interactable = true;
-            //}
+            if (PlayerVariableData.money < shopList[i].cost)
+            {
+                //Debug.Log("NOT ENOUGH MONEY FOR THIS SKILL");
+                //cb.normalColor = unavailableColor;
+                buyButtons[i].interactable = false;
+            }
+            else
+            {
+                buyButtons[i].interactable = true;
+            }
         }
 
 
@@ -83,15 +83,10 @@ public class SkillShop : MonoBehaviour
             //Debug.Log(currentMoneyCount);
             moneyText.text = currentMoneyCount + "";
 
+            //update button color
             for (int i = 0; i < shopList.Count; i++)
             {
-                names[i].text = shopList[i].skillName;
-                damage[i].text = shopList[i].damage + "";
-                cost[i].text = shopList[i].cost + "";
-                itemsOwn[i].text = "Not Own";
-
                 //if player cant afford skill
-                //ColorBlock cb = buyButtons[i].colors;
                 if (PlayerVariableData.money < shopList[i].cost)
                 {
                     //Debug.Log("NOT ENOUGH MONEY FOR THIS SKILL");

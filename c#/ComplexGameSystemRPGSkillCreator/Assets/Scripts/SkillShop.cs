@@ -125,7 +125,7 @@ public class SkillShop : MonoBehaviour
         //gets gameobject from currenly selected button
         selectedButton = EventSystem.current.currentSelectedGameObject;
 
-        Debug.Log(selectedButton.name);
+        //Debug.Log(selectedButton.name);
 
         for(int i = 0; i < shopList.Count; i++)
         {
@@ -141,7 +141,7 @@ public class SkillShop : MonoBehaviour
                    //buy item
                    PlayerVariableData.money = PlayerVariableData.money - shopList[i].cost;
                    itemsOwn[i].text = "Own";
-                    Debug.Log(itemsOwn[i].text);
+                   // Debug.Log(itemsOwn[i].text);
                    buyButtons[i].gameObject.SetActive(false);
 
                 }

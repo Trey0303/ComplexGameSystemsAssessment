@@ -616,7 +616,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223057534}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -673,13 +673,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 1a7ba4482b06b53479ecb65e3722b150, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 240285381}
+        m_TargetAssemblyTypeName: MoneyObjOnTrigger, Assembly-CSharp
+        m_MethodName: GetMoney
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -927,6 +927,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a7ba4482b06b53479ecb65e3722b150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moneyIncreaseButton: {fileID: 223057536}
+  inRange: 0
+  buttonActive: 0
 --- !u!65 &240285382
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2614,7 +2617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1631130482782817084, guid: e0c010da1117f5549a6d8be69a2fbd1a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.34
       objectReference: {fileID: 0}
     - target: {fileID: 1631130482782817084, guid: e0c010da1117f5549a6d8be69a2fbd1a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4451,7 +4454,6 @@ GameObject:
   - component: {fileID: 1937138174}
   - component: {fileID: 1937138173}
   - component: {fileID: 1937138177}
-  - component: {fileID: 1937138178}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4596,18 +4598,6 @@ MonoBehaviour:
   moneyText: {fileID: 1768518080}
   playerUI: {fileID: 1576516811}
   moneyTextPlayerUI: {fileID: 697851670}
---- !u!114 &1937138178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1937138172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a7ba4482b06b53479ecb65e3722b150, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1966775033
 GameObject:
   m_ObjectHideFlags: 0

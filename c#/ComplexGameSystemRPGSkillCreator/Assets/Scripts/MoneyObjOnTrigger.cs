@@ -6,12 +6,16 @@ using UnityEngine.UI;
 
 public class MoneyObjOnTrigger : MonoBehaviour
 {
-    //public Button moneyIncreaseButton;
-    private bool inRange;
+    public Button moneyIncreaseButton;
+    public bool inRange;
+    public bool buttonActive;
 
     private void Start()
     {
         inRange = false;
+        buttonActive = false;
+        moneyIncreaseButton.interactable = false;
+
     }
      
     private void Update()
@@ -24,16 +28,22 @@ public class MoneyObjOnTrigger : MonoBehaviour
                 GetMoney();
             }
         }
+        if (inRange && !buttonActive)
+        {
+            buttonActive = true;
+            moneyIncreaseButton.interactable = true;
+        }
+        if (!inRange && buttonActive)
+        {
+            moneyIncreaseButton.interactable = false;
+            buttonActive = false;
+        }
     }
 
-    public void GetMoneyOnClick()
-    {
-        Debug.Log("button pressed");
-        //GetMoney();
-    }
 
     public void GetMoney()
     {
+        //Debug.Log("button pressed");
         PlayerVariableData.money = PlayerVariableData.money + 1;
     }
 

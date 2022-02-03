@@ -44,6 +44,8 @@ public class SkillShop : MonoBehaviour
         shopMenu = GameObject.Find("ShopInventory");
         playerUI = GameObject.Find("PlayerUI");
 
+        openShopMenu.interactable = false;
+
         //assign name, damage, cost to shop list
         for (int i = 0; i < shopList.Count; i++)
         {
@@ -115,6 +117,8 @@ public class SkillShop : MonoBehaviour
 
         if (PlayerVariableData.inShopRange)//if player is in shop range
         {
+            openShopMenu.interactable = true;
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (!shopMenuActive)//if player wants to open shop menu
@@ -136,6 +140,10 @@ public class SkillShop : MonoBehaviour
         {
             HideShop();
             shopMenuActive = false;
+        }
+        if(!PlayerVariableData.inShopRange)
+        {
+            openShopMenu.interactable = false;
         }
     }
 

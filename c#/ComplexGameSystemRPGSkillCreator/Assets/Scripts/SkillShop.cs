@@ -1,212 +1,232 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+﻿//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEngine.EventSystems;
+//using UnityEngine.UI;
 
-public class SkillShop : MonoBehaviour
-{
-    public List<SkillObj> shopList;
+//public class SkillShop : MonoBehaviour
+//{
+//    public Skill skillScript;
 
-    public List<Text> names;
+//    public string taggedGameobjectWithSkillScript;
 
-    public List<Text> damage;
+//    public List<SkillObj> shopList;
 
-    public List<Text> cost;
+//    public List<Text> names;
 
-    public List<Text> itemsOwn;
+//    public List<Text> damage;
 
-    public List<Button> buyButtons;
-    public static GameObject selectedButton;
+//    public List<Text> cost;
 
-    public Button openShopMenu;
-    public Button close;
+//    public List<Text> itemsOwn;
 
-    //menus to display
-    public GameObject shopMenu;
+//    public List<Button> buyButtons;
+//    public static GameObject selectedButton;
 
-    public int money;
-    private int currentMoneyCount;
+//    public Button openShopMenu;
+//    public Button close;
 
-    public Text moneyText;
-    private bool shopMenuActive;
+//    //menus to display
+//    public GameObject shopMenu;
 
-    public GameObject playerUI;
-    public Text moneyTextPlayerUI;
+//    public int money;
+//    private int currentMoneyCount;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        moneyText.text = "0";
-        moneyTextPlayerUI.text = "0";
-        PlayerVariableData.money = 0;
-        currentMoneyCount = 0;
-        shopMenu = GameObject.Find("ShopInventory");
-        playerUI = GameObject.Find("PlayerUI");
+//    public Text moneyText;
+//    private bool shopMenuActive;
 
-        openShopMenu.interactable = false;
+//    public GameObject playerUI;
+//    public Text moneyTextPlayerUI;
 
-        //assign name, damage, cost to shop list
-        for (int i = 0; i < shopList.Count; i++)
-        {
-            names[i].text = shopList[i].skillName;
-            damage[i].text = shopList[i].damage + "";
-            cost[i].text = shopList[i].cost + "";
-            itemsOwn[i].text = "Not Own";
+//    // Start is called before the first frame update
+//    void Start()
+//    {
+//        skillScript = GameObject.FindGameObjectWithTag(taggedGameobjectWithSkillScript).GetComponent<Skill>();
 
-            //if player cant afford skill
-            if (PlayerVariableData.money < shopList[i].cost)
-            {
-                //Debug.Log("NOT ENOUGH MONEY FOR THIS SKILL");
-                //cb.normalColor = unavailableColor;
-                buyButtons[i].interactable = false;
-            }
-            else
-            {
-                buyButtons[i].interactable = true;
-            }
-        }
+//        moneyText.text = "0";
+//        moneyTextPlayerUI.text = "0";
+//        PlayerVariableData.money = 0;
+//        currentMoneyCount = 0;
+//        shopMenu = GameObject.Find("ShopInventory");
+//        playerUI = GameObject.Find("PlayerUI");
 
-        //how playerUI at startup
-        if (playerUI != null)
-        {
-            playerUI.SetActive(true);
-        }
+//        openShopMenu.interactable = false;
 
-        //hide shop at startup
-        if (shopMenu != null)
-        {
-            shopMenu.SetActive(false);
-            openShopMenu.gameObject.SetActive(true);
-            close.gameObject.SetActive(false);
-        }
+//        //assign name, damage, cost to shop list
+//        for (int i = 0; i < shopList.Count; i++)
+//        {
+//            names[i].text = shopList[i].skillName;
+//            damage[i].text = shopList[i].damage + "";
+//            cost[i].text = shopList[i].cost + "";
+//            itemsOwn[i].text = "Not Own";
+
+//            //if player cant afford skill
+//            if (PlayerVariableData.money < shopList[i].cost)
+//            {
+//                //Debug.Log("NOT ENOUGH MONEY FOR THIS SKILL");
+//                //cb.normalColor = unavailableColor;
+//                buyButtons[i].interactable = false;
+//            }
+//            else
+//            {
+//                buyButtons[i].interactable = true;
+//            }
+//        }
+
+//        //how playerUI at startup
+//        if (playerUI != null)
+//        {
+//            playerUI.SetActive(true);
+//        }
+
+//        //hide shop at startup
+//        if (shopMenu != null)
+//        {
+//            shopMenu.SetActive(false);
+//            openShopMenu.gameObject.SetActive(true);
+//            close.gameObject.SetActive(false);
+//        }
 
 
-    }
+//    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //if player lost or earned money then update ui to reflect that
-        if(PlayerVariableData.money != currentMoneyCount)
-        {
-            currentMoneyCount = PlayerVariableData.money;
-            //Debug.Log("money: " + PlayerVariableData.money);
-            //Debug.Log(currentMoneyCount);
-            moneyText.text = currentMoneyCount + "";
-            moneyTextPlayerUI.text = currentMoneyCount + "";
+//    // Update is called once per frame
+//    void Update()
+//    {
+//        //if player lost or earned money then update ui to reflect that
+//        if(PlayerVariableData.money != currentMoneyCount)
+//        {
+//            currentMoneyCount = PlayerVariableData.money;
+//            //Debug.Log("money: " + PlayerVariableData.money);
+//            //Debug.Log(currentMoneyCount);
+//            moneyText.text = currentMoneyCount + "";
+//            moneyTextPlayerUI.text = currentMoneyCount + "";
 
-            //update button color
-            for (int i = 0; i < shopList.Count; i++)
-            {
-                //if player cant afford skill
-                if (PlayerVariableData.money < shopList[i].cost)
-                {
-                    //Debug.Log("NOT ENOUGH MONEY FOR THIS SKILL");
-                    //cb.normalColor = unavailableColor;
-                    buyButtons[i].interactable = false;
-                }
-                else
-                {
-                    buyButtons[i].interactable = true;
-                }
-            }
-        }
+//            //update button color
+//            for (int i = 0; i < shopList.Count; i++)
+//            {
+//                //if player cant afford skill
+//                if (PlayerVariableData.money < shopList[i].cost)
+//                {
+//                    //Debug.Log("NOT ENOUGH MONEY FOR THIS SKILL");
+//                    //cb.normalColor = unavailableColor;
+//                    buyButtons[i].interactable = false;
+//                }
+//                else
+//                {
+//                    buyButtons[i].interactable = true;
+//                }
+//            }
+//        }
 
         
 
-        if (PlayerVariableData.inShopRange)//if player is in shop range
-        {
-            openShopMenu.interactable = true;
+//        if (PlayerVariableData.inShopRange)//if player is in shop range
+//        {
+//            openShopMenu.interactable = true;
 
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                if (!shopMenuActive)//if player wants to open shop menu
-                {
-                    ShowShop();
+//            if (Input.GetKeyDown(KeyCode.E))
+//            {
+//                if (!shopMenuActive)//if player wants to open shop menu
+//                {
+//                    ShowShop();
                     
 
-                }
-                else if (shopMenuActive)//if player wants to exit shop menu
-                {
-                    HideShop();
+//                }
+//                else if (shopMenuActive)//if player wants to exit shop menu
+//                {
+//                    HideShop();
                     
 
-                }
+//                }
 
-            }
-        }
-        if (!PlayerVariableData.inShopRange && shopMenuActive)//if player leaves shop range, close shop menu
-        {
-            HideShop();
-            shopMenuActive = false;
-        }
-        if(!PlayerVariableData.inShopRange)
-        {
-            openShopMenu.interactable = false;
-        }
-    }
+//            }
+//        }
+//        if (!PlayerVariableData.inShopRange && shopMenuActive)//if player leaves shop range, close shop menu
+//        {
+//            HideShop();
+//            shopMenuActive = false;
+//        }
+//        if(!PlayerVariableData.inShopRange)
+//        {
+//            openShopMenu.interactable = false;
+//        }
+//    }
 
-    public void ShowShop()
-    {
-        shopMenu.SetActive(true);
-        openShopMenu.gameObject.SetActive(false);
-        close.gameObject.SetActive(true);
+//    public void ShowShop()
+//    {
+//        shopMenu.SetActive(true);
+//        openShopMenu.gameObject.SetActive(false);
+//        close.gameObject.SetActive(true);
 
-        shopMenuActive = true;
+//        shopMenuActive = true;
 
-        if (!PlayerVariableData.inShopRange && shopMenuActive)//check if shop menu should be open
-        {
-            HideShop();
-        }
-    }
+//        if (!PlayerVariableData.inShopRange && shopMenuActive)//check if shop menu should be open
+//        {
+//            HideShop();
+//        }
+//    }
 
-    public void HideShop()
-    {
-        shopMenu.SetActive(false);
-        openShopMenu.gameObject.SetActive(true);
-        close.gameObject.SetActive(false);
+//    public void HideShop()
+//    {
+//        shopMenu.SetActive(false);
+//        openShopMenu.gameObject.SetActive(true);
+//        close.gameObject.SetActive(false);
 
-        shopMenuActive = false;
+//        shopMenuActive = false;
 
-    }
+//    }
 
-    public void Buy()
-    {
-        //gets gameobject from currenly selected button
-        selectedButton = EventSystem.current.currentSelectedGameObject;
+//    public void Buy()
+//    {
+//        //gets gameobject from currenly selected button
+//        selectedButton = EventSystem.current.currentSelectedGameObject;
 
-        //Debug.Log(selectedButton.name);
+//        //Debug.Log(selectedButton.name);
 
-        for(int i = 0; i < shopList.Count; i++)
-        {
-            //Debug.Log("Selected Button: " + selectedButton.name);
-            //Debug.Log("Button List: " + i);
+//        for(int i = 0; i < shopList.Count; i++)
+//        {
+//            //Debug.Log("Selected Button: " + selectedButton.name);
+//            //Debug.Log("Button List: " + i);
             
-            //if selected button is found in button list
-            if(selectedButton == buyButtons[i].gameObject)
-            {
-                //check if player has enough money
-                if(PlayerVariableData.money >= shopList[i].cost)
-                {
-                   //buy item
-                   PlayerVariableData.money = PlayerVariableData.money - shopList[i].cost;
-                   itemsOwn[i].text = "Own";
-                   // Debug.Log(itemsOwn[i].text);
-                   buyButtons[i].gameObject.SetActive(false);
+//            //if selected button is found in button list
+//            if(selectedButton == buyButtons[i].gameObject)
+//            {
+//                //check if player has enough money
+//                if(PlayerVariableData.money >= shopList[i].cost)
+//                {
+//                   //buy item
+//                   PlayerVariableData.money = PlayerVariableData.money - shopList[i].cost;
+//                   itemsOwn[i].text = "Own";
+//                   // Debug.Log(itemsOwn[i].text);
+//                   buyButtons[i].gameObject.SetActive(false);
 
-                }
+
+//                    for (int j = 0; j < skillScript.skillProgress.Count; j++)
+//                    {
+//                        Debug.Log(skillScript.skillProgress[j].name);
+//                        if (j == skillScript.skillProgress.Count)
+//                        {
+//                            //add skill
+//                            skillScript.skillProgress.Add(null);
+
+//                            skillScript.skillProgress[j].AddSkill(shopList[i]);
+
+//                        }
+//                    }
+
+//                }
                 
 
 
-            }
-        }
+//            }
+//        }
 
 
 
 
         
-    }
+//    }
 
 
-}
+//}

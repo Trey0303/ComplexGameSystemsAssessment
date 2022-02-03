@@ -4,61 +4,43 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-    //change this to a list for ability to add more skills to player
-    public List<SkillObj> skillData;
-
-
-    //might need to change these to reflect on mulitiple different skills
-    private List<int> exp;
-    private List<int> level;
-    private List<float> damage;
-    private List<int> maxExp;
+    public List<SkillProgress> skillProgress = new List<SkillProgress>();
 
     // Start is called before the first frame update
     void Start()
     {
         //maxExp = 5;
-        for(int i = 0; i < skillData.Count; i++)
+        for(int i = 0; i < skillProgress.Count; i++)
         {
             //exp[i] = skillData[i].exp; 
-            maxExp[i] = 5;
-        }
+            if(skillProgress.Count != 0)
+            {
+                skillProgress[i].AddSkill();
 
-        
-        
+            }
+
+            //skillProgress[i].maxExp = 5;
+            //skillProgress[i].level = 1;
+            //skillProgress[i].damage = skillProgress[i].skillData.damage;
+        }   
     }
 
-
+    // Add Skill method
+    // should add the skill to the list of skill progresses
+    // set default/starting values on that skill progress
+    // use this in Start() instead of hard-coding in how to initialize each progress
+    
     // Update is called once per frame
     void Update()
     {
         //skill 1
         if (Input.GetKeyDown(KeyCode.F))
         {
-            exp[0] = exp[0] + 1;
-            LevelUpSkill();
-
+            skillProgress[0].AddExp(5);
         }
-        //skill 2
-        if (Input.GetKeyDown(KeyCode.G)){
-            exp[1] = exp[1] + 1;
-            LevelUpSkill();
-        }
-        //skill 3
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            exp[2] = exp[2] + 1;
-            LevelUpSkill();
-        }
-        //skill 4
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            exp[3] = exp[3] + 1;
-            LevelUpSkill();
-        }
-
     }
 
+    /*
     void LevelUpSkill()
     {
         for (int i = 0; i < skillData.Count; i++)
@@ -95,4 +77,5 @@ public class Skill : MonoBehaviour
         }
 
     }
+    */
 }

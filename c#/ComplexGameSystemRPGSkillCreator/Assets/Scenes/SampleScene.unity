@@ -2382,8 +2382,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1937138177}
-        m_TargetAssemblyTypeName: SkillShop, Assembly-CSharp
+      - m_Target: {fileID: 1937138178}
+        m_TargetAssemblyTypeName: SkillShopVTwo, Assembly-CSharp
         m_MethodName: Buy
         m_Mode: 1
         m_Arguments:
@@ -3212,8 +3212,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1937138177}
-        m_TargetAssemblyTypeName: SkillShop, Assembly-CSharp
+      - m_Target: {fileID: 1937138178}
+        m_TargetAssemblyTypeName: SkillShopVTwo, Assembly-CSharp
         m_MethodName: Buy
         m_Mode: 1
         m_Arguments:
@@ -3447,11 +3447,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce51349915acc44bb5898de47d14347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillData:
-  - {fileID: 11400000, guid: 7e1037117f6759c47aa3b2d8410ae66c, type: 2}
-  - {fileID: 11400000, guid: 8b979aeb1477eb145aa19268713346bb, type: 2}
-  - {fileID: 11400000, guid: 0161baaddf41fe9419d8bb07b74f43cd, type: 2}
-  - {fileID: 11400000, guid: 004421f4815422c46a2208003debee94, type: 2}
+  skillProgress:
+  - skillData: {fileID: 11400000, guid: 7e1037117f6759c47aa3b2d8410ae66c, type: 2}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
 --- !u!1 &1505861038
 GameObject:
   m_ObjectHideFlags: 0
@@ -3515,8 +3518,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1937138177}
-        m_TargetAssemblyTypeName: SkillShop, Assembly-CSharp
+      - m_Target: {fileID: 1937138178}
+        m_TargetAssemblyTypeName: SkillShopVTwo, Assembly-CSharp
         m_MethodName: ShowShop
         m_Mode: 1
         m_Arguments:
@@ -4159,8 +4162,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1937138177}
-        m_TargetAssemblyTypeName: SkillShop, Assembly-CSharp
+      - m_Target: {fileID: 1937138178}
+        m_TargetAssemblyTypeName: SkillShopVTwo, Assembly-CSharp
         m_MethodName: HideShop
         m_Mode: 1
         m_Arguments:
@@ -4391,8 +4394,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1937138177}
-        m_TargetAssemblyTypeName: SkillShop, Assembly-CSharp
+      - m_Target: {fileID: 1937138178}
+        m_TargetAssemblyTypeName: SkillShopVTwo, Assembly-CSharp
         m_MethodName: Buy
         m_Mode: 1
         m_Arguments:
@@ -4453,7 +4456,7 @@ GameObject:
   - component: {fileID: 1937138175}
   - component: {fileID: 1937138174}
   - component: {fileID: 1937138173}
-  - component: {fileID: 1937138177}
+  - component: {fileID: 1937138178}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4549,7 +4552,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1937138177
+--- !u!114 &1937138178
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4558,14 +4561,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 1937138172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d80071dc45c74334495cc6b0c26ed146, type: 3}
+  m_Script: {fileID: 11500000, guid: e53bd6df42b6f1348b6f9f56ab0ec169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopList:
-  - {fileID: 11400000, guid: 7e1037117f6759c47aa3b2d8410ae66c, type: 2}
-  - {fileID: 11400000, guid: 8b979aeb1477eb145aa19268713346bb, type: 2}
-  - {fileID: 11400000, guid: 0161baaddf41fe9419d8bb07b74f43cd, type: 2}
-  - {fileID: 11400000, guid: 004421f4815422c46a2208003debee94, type: 2}
+  skillScript: {fileID: 0}
+  taggedGameobjectWithSkillScript: Player
+  skillShop:
+  - skillData: {fileID: 11400000, guid: 7e1037117f6759c47aa3b2d8410ae66c, type: 2}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  - skillData: {fileID: 11400000, guid: 8b979aeb1477eb145aa19268713346bb, type: 2}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  - skillData: {fileID: 11400000, guid: 0161baaddf41fe9419d8bb07b74f43cd, type: 2}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  - skillData: {fileID: 11400000, guid: 004421f4815422c46a2208003debee94, type: 2}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   names:
   - {fileID: 1349974829}
   - {fileID: 2007841513}
@@ -4964,8 +4993,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1937138177}
-        m_TargetAssemblyTypeName: SkillShop, Assembly-CSharp
+      - m_Target: {fileID: 1937138178}
+        m_TargetAssemblyTypeName: SkillShopVTwo, Assembly-CSharp
         m_MethodName: Buy
         m_Mode: 1
         m_Arguments:

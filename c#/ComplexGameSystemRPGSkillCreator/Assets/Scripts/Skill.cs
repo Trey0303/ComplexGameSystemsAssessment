@@ -32,22 +32,25 @@ public class Skill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //skill one
+        //skill 1
         if (Input.GetKeyDown(KeyCode.F))
         {
             exp[0] = exp[0] + 1;
             LevelUpSkill();
 
         }
+        //skill 2
         if (Input.GetKeyDown(KeyCode.G)){
             exp[1] = exp[1] + 1;
             LevelUpSkill();
         }
+        //skill 3
         if (Input.GetKeyDown(KeyCode.H))
         {
             exp[2] = exp[2] + 1;
             LevelUpSkill();
         }
+        //skill 4
         if (Input.GetKeyDown(KeyCode.J))
         {
             exp[3] = exp[3] + 1;

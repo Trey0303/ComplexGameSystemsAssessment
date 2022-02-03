@@ -31,13 +31,18 @@ public class SkillShop : MonoBehaviour
     public Text moneyText;
     private bool shopMenuActive;
 
+    public GameObject playerUI;
+    public Text moneyTextPlayerUI;
+
     // Start is called before the first frame update
     void Start()
     {
         moneyText.text = "0";
+        moneyTextPlayerUI.text = "0";
         PlayerVariableData.money = 0;
         currentMoneyCount = 0;
         shopMenu = GameObject.Find("ShopInventory");
+        playerUI = GameObject.Find("PlayerUI");
 
         //assign name, damage, cost to shop list
         for (int i = 0; i < shopList.Count; i++)
@@ -60,10 +65,14 @@ public class SkillShop : MonoBehaviour
             }
         }
 
-
+        //how playerUI at startup
+        if (playerUI != null)
+        {
+            playerUI.SetActive(true);
+        }
 
         //hide shop at startup
-        if(shopMenu != null)
+        if (shopMenu != null)
         {
             shopMenu.SetActive(false);
             openShopMenu.gameObject.SetActive(true);
@@ -83,6 +92,7 @@ public class SkillShop : MonoBehaviour
             //Debug.Log("money: " + PlayerVariableData.money);
             //Debug.Log(currentMoneyCount);
             moneyText.text = currentMoneyCount + "";
+            moneyTextPlayerUI.text = currentMoneyCount + "";
 
             //update button color
             for (int i = 0; i < shopList.Count; i++)
@@ -101,10 +111,7 @@ public class SkillShop : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            PlayerVariableData.money = PlayerVariableData.money + 1;
-        }
+        
 
         if (PlayerVariableData.inShopRange)//if player is in shop range
         {

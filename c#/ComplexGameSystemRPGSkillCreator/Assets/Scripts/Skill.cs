@@ -7,11 +7,11 @@ public class Skill : MonoBehaviour
     //change this to a list for ability to add more skills to player
     public List<SkillObj> skillData;
 
-    
+
     //might need to change these to reflect on mulitiple different skills
-    List<int> exp;
-    List<int> level;
-    List<float> damage;
+    private List<int> exp;
+    private List<int> level;
+    private List<float> damage;
     private List<int> maxExp;
 
     // Start is called before the first frame update
@@ -20,8 +20,8 @@ public class Skill : MonoBehaviour
         //maxExp = 5;
         for(int i = 0; i < skillData.Count; i++)
         {
-            exp[i] = skillData[i].exp; 
-            maxExp[i] = skillData[i].maxExp;
+            //exp[i] = skillData[i].exp; 
+            maxExp[i] = 5;
         }
 
         
@@ -32,20 +32,28 @@ public class Skill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //skill one
         if (Input.GetKeyDown(KeyCode.F))
         {
-            for (int i = 0; i < skillData.Count; i++)
-            {
-                //exp[i] = exp[i] + 1;
-                Debug.Log("skill " + i + "exp: " + exp[i]);
-            }
+            exp[0] = exp[0] + 1;
             LevelUpSkill();
-            //Debug.Log("exp: " + exp);
-            
 
         }
+        if (Input.GetKeyDown(KeyCode.G)){
+            exp[1] = exp[1] + 1;
+            LevelUpSkill();
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            exp[2] = exp[2] + 1;
+            LevelUpSkill();
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            exp[3] = exp[3] + 1;
+            LevelUpSkill();
+        }
 
-        
     }
 
     void LevelUpSkill()

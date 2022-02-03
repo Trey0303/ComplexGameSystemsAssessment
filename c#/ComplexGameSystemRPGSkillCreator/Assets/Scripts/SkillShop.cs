@@ -29,6 +29,7 @@ public class SkillShop : MonoBehaviour
     private int currentMoneyCount;
 
     public Text moneyText;
+    private bool shopMenuActive;
 
     // Start is called before the first frame update
     void Start()
@@ -100,9 +101,34 @@ public class SkillShop : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             PlayerVariableData.money = PlayerVariableData.money + 1;
+        }
+
+        if (PlayerVariableData.inShopRange)//if player is in shop range
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!shopMenuActive)//if player wants to open shop menu
+                {
+                    ShowShop();
+                    shopMenuActive = true;
+
+                }
+                else if (shopMenuActive)//if player wants to exit shop menu
+                {
+                    HideShop();
+                    shopMenuActive = false;
+
+                }
+
+            }
+        }
+        if (!PlayerVariableData.inShopRange && shopMenuActive)//if player leaves shop range, close shop menu
+        {
+            HideShop();
+            shopMenuActive = false;
         }
     }
 

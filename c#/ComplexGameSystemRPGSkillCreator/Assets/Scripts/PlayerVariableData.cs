@@ -5,4 +5,6 @@ using UnityEngine;
 public class PlayerVariableData : MonoBehaviour
 {
     public static int money {get; set;}
+
+    public static bool inShopRange { get; set; }
 }

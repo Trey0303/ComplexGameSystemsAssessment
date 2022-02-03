@@ -94,28 +94,6 @@ public class SkillShopVTwo : MonoBehaviour
             }
         }
 
-        ////assign name, damage, cost to shop list
-        //for (int i = 0; i < shopList.Count; i++)
-        //{
-        //    names[i].text = shopList[i].skillName;
-        //    damage[i].text = shopList[i].damage + "";
-        //    cost[i].text = shopList[i].cost + "";
-        //    itemsOwn[i].text = "Not Own";
-
-
-        //    //if player cant afford skill
-        //    if (PlayerVariableData.money < shopList[i].cost)
-        //    {
-        //        //Debug.Log("NOT ENOUGH MONEY FOR THIS SKILL");
-        //        //cb.normalColor = unavailableColor;
-        //        buyButtons[i].interactable = false;
-        //    }
-        //    else
-        //    {
-        //        buyButtons[i].interactable = true;
-        //    }
-        //}
-
         //how playerUI at startup
         if (playerUI != null)
         {

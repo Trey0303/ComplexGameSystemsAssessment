@@ -9,6 +9,4 @@ public class SkillObj : ScriptableObject
     public int damage;
     public int maxLevel;
     public int cost;
-    //public int exp;
-    //public int maxExp;
 }

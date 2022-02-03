@@ -113,13 +113,13 @@ public class SkillShop : MonoBehaviour
                 if (!shopMenuActive)//if player wants to open shop menu
                 {
                     ShowShop();
-                    shopMenuActive = true;
+                    
 
                 }
                 else if (shopMenuActive)//if player wants to exit shop menu
                 {
                     HideShop();
-                    shopMenuActive = false;
+                    
 
                 }
 
@@ -137,6 +137,13 @@ public class SkillShop : MonoBehaviour
         shopMenu.SetActive(true);
         openShopMenu.gameObject.SetActive(false);
         close.gameObject.SetActive(true);
+
+        shopMenuActive = true;
+
+        if (!PlayerVariableData.inShopRange && shopMenuActive)//check if shop menu should be open
+        {
+            HideShop();
+        }
     }
 
     public void HideShop()
@@ -144,6 +151,9 @@ public class SkillShop : MonoBehaviour
         shopMenu.SetActive(false);
         openShopMenu.gameObject.SetActive(true);
         close.gameObject.SetActive(false);
+
+        shopMenuActive = false;
+
     }
 
     public void Buy()

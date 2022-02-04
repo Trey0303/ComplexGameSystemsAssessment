@@ -64,5 +64,21 @@ public class Skill : MonoBehaviour
             }
 
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if(skillProgress.Count >= 1)
+            {
+                skillProgress[0].skillData.Use();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (skillProgress.Count >= 2)
+            {
+                skillProgress[1].skillData.Use();
+            }
+        }
     }
 }

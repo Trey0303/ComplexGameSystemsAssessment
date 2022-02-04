@@ -4588,7 +4588,7 @@ MonoBehaviour:
     level: 0
     damage: 0
     cost: 0
-  - skillData: {fileID: 11400000, guid: 004421f4815422c46a2208003debee94, type: 2}
+  - skillData: {fileID: 11400000, guid: 5e4392638adbd2c4c8e944c8e88f9177, type: 2}
     name: 
     exp: 0
     maxExp: 0

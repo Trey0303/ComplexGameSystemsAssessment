@@ -9,4 +9,16 @@ public class SkillObj : ScriptableObject
     public int damage;
     public int maxLevel;
     public int cost;
+    public string characterTag;
+    protected GameObject wielder;
+    public virtual void Use() {
+        wielder = GameObject.FindWithTag(characterTag);
+        Debug.Log("basic skill");
+        //play animation
+
+        //create hitbox
+
+        //apply damage
+    }
+
 }

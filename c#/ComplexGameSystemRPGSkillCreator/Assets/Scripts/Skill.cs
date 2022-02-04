@@ -29,9 +29,40 @@ public class Skill : MonoBehaviour
     void Update()
     {
         //skill 1
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            skillProgress[0].AddExp(5);
+            if(skillProgress.Count >= 1)
+            {
+                skillProgress[0].AddExp(5);
+
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (skillProgress.Count >= 2)
+            {
+                skillProgress[1].AddExp(5);
+
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (skillProgress.Count >= 3)
+            {
+                skillProgress[2].AddExp(5);
+
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            if (skillProgress.Count >= 4)
+            {
+                skillProgress[3].AddExp(5);
+
+            }
+
         }
     }
 }

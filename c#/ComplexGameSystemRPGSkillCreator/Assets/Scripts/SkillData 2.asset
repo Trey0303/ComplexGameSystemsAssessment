@@ -16,3 +16,5 @@ MonoBehaviour:
   damage: 12
   maxLevel: 99
   cost: 18
+  characterTag: Player
+  targetTag: Enemy

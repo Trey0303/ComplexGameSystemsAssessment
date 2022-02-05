@@ -16,3 +16,6 @@ MonoBehaviour:
   damage: 6
   maxLevel: 99
   cost: 5
+  characterTag: Player
+  physAnimation: {fileID: 0}
+  hurtboxPrefab: {fileID: 863276530170334723, guid: 70c710a149c92f64194f991ee901e668, type: 3}

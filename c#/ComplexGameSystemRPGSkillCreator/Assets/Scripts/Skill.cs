@@ -5,6 +5,10 @@ using UnityEngine;
 public class Skill : MonoBehaviour
 {
     public List<SkillProgress> skillProgress = new List<SkillProgress>();
+    //protected GameObject target;
+    //public string targetTag;
+    //protected bool targetInRange;
+
 
     // Start is called before the first frame update
     void Start()
@@ -81,4 +85,27 @@ public class Skill : MonoBehaviour
             }
         }
     }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.tag == targetTag)
+    //    {
+    //        Debug.Log("enemy in range");
+    //        //targetInRange = true;
+    //        target = other.gameObject;
+
+    //        //access skill damage
+
+
+    //    }
+    //}
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.tag == targetTag)
+    //    {
+    //        Debug.Log("enemy out of range");
+    //        targetInRange = false;
+    //        target = null;
+    //    }
+    //}
 }

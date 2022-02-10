@@ -23,9 +23,26 @@ public class SkillObj : ScriptableObject
 
         Debug.Log("basic skill");
         //play animation
+
+        //create hitbox
+        DisplayHitBox();
+
+        //apply damage
     }
 
-    //apply damage
+    void DisplayHitBox()
+    {
+        //GameObject hitbox = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        var box = Instantiate(hurtboxPrefab, wielder.transform.position + wielder.transform.forward, Quaternion.identity);
+        Destroy(box, 0.1f);
+        //hitbox.transform.position = new Vector3(wielder.transform.position.x, wielder.transform.position.y, wielder.transform.position.z + 1);
+        //hitbox.GetComponent<Collider>().isTrigger = true;
+
+        //hitbox.transform.parent = wielder.transform;
+
+        //activePhysicalHitbox = box;
+    }
+
     public virtual void HitTarget(GameObject targetCollider)
     {
         if (targetCollider != null)

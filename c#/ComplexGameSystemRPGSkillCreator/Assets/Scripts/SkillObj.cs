@@ -23,24 +23,26 @@ public class SkillObj : ScriptableObject
 
         Debug.Log("basic skill");
         //play animation
-
-        //create hitbox
-        DisplayHitBox();
-
-        //apply damage
     }
 
-    void DisplayHitBox()
+    //apply damage
+    public virtual void HitTarget(GameObject targetCollider)
     {
-        //GameObject hitbox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        var box = Instantiate(hurtboxPrefab, wielder.transform.position + wielder.transform.forward, Quaternion.identity);
-        Destroy(box, 0.1f);
-        //hitbox.transform.position = new Vector3(wielder.transform.position.x, wielder.transform.position.y, wielder.transform.position.z + 1);
-        //hitbox.GetComponent<Collider>().isTrigger = true;
+        if (targetCollider != null)
+        {
+            if (targetCollider.gameObject.GetComponent<Health>() != null)
+            {
+                Health targetHealth = targetCollider.gameObject.GetComponent<Health>();
 
-        //hitbox.transform.parent = wielder.transform;
+                targetHealth.health = targetHealth.health - damage;
+                //Debug.Log("hit");
 
-        //activePhysicalHitbox = box;
+            }
+            else
+            {
+                Debug.Log("target does NOT have health script attached");
+            }
+        }
     }
 
 }

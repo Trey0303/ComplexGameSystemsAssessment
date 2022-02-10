@@ -76,6 +76,7 @@ public class Skill : MonoBehaviour
             if(skillProgress.Count >= 1)
             {
                 skillProgress[0].skillData.Use();
+                skillProgress[0].AddExp(5);
             }
         }
 
@@ -84,6 +85,7 @@ public class Skill : MonoBehaviour
             if (skillProgress.Count >= 2)
             {
                 skillProgress[1].skillData.Use();
+                skillProgress[1].AddExp(5);
             }
         }
     }

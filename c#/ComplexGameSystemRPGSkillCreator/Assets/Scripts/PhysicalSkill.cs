@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "PhysicalSkillData", menuName = "SkillObjects/ScriptablePhysicalSkills", order = 1)]
+[CreateAssetMenu(fileName = "PhysicalSkillData", menuName = "SkillObjects/ScriptablePhysicalSkill", order = 1)]
 public class PhysicalSkill : SkillObj
 {
     protected GameObject activePhysicalHitbox;
@@ -21,28 +21,34 @@ public class PhysicalSkill : SkillObj
     {
         var box = Instantiate(hurtboxPrefab, new Vector3(wielder.transform.position.x, wielder.transform.position.y, wielder.transform.position.z + 1.1f), Quaternion.identity);
 
+        //get target from FindTarget
+        var targetTemp = box.GetComponent<FindTarget>();
+
+        //give FindTarget current skill
+        targetTemp.skill = this;
+
         box.transform.parent = wielder.transform;
         
-        Destroy(box, 0.1f);
+        Destroy(box, .1f);
     }
 
-    public void HitTarget(Collider targetCollider)
-    {
-        if (targetCollider != null)
-        {
-            if (targetCollider.gameObject.GetComponent<Health>() != null)
-            {
-                Health targetHealth = targetCollider.gameObject.GetComponent<Health>();
+    //public void HitTarget(Collider targetCollider)
+    //{
+    //    if (targetCollider != null)
+    //    {
+    //        if (targetCollider.gameObject.GetComponent<Health>() != null)
+    //        {
+    //            Health targetHealth = targetCollider.gameObject.GetComponent<Health>();
 
-                targetHealth.health = targetHealth.health - damage;
-                //Debug.Log("hit");
+    //            targetHealth.health = targetHealth.health - damage;
+    //            //Debug.Log("hit");
 
-            }
-            else
-            {
-                Debug.Log("target does NOT have health script attached");
-            }
-        }
-    }
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("target does NOT have health script attached");
+    //        }
+    //    }
+    //}
 
 }

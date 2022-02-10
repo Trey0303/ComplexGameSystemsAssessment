@@ -19,7 +19,7 @@ public class PhysicalSkill : SkillObj
 
     void DisplayHitBox()
     {
-        var box = Instantiate(hurtboxPrefab, new Vector3(wielder.transform.position.x, wielder.transform.position.y, wielder.transform.position.z + 1.1f), Quaternion.identity);
+        var box = Instantiate(hurtboxPrefab, wielder.transform.position + wielder.transform.forward, wielder.transform.rotation);
 
         //get target from FindTarget
         var targetTemp = box.GetComponent<FindTarget>();

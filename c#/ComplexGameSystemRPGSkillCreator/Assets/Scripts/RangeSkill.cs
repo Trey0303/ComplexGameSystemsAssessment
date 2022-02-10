@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "RangeSkillData", menuName = "SkillObjects/ScriptableRangeSkill", order = 1)]
 public class RangeSkill : SkillObj
 {
+    public int range;
+
     protected GameObject activeRangeHitbox;
 
     // Start is called before the first frame update
@@ -17,7 +19,7 @@ public class RangeSkill : SkillObj
 
     void DisplayHitBox()
     {
-        var box = Instantiate(hurtboxPrefab, new Vector3(wielder.transform.position.x, wielder.transform.position.y, wielder.transform.position.z + 4.4f), Quaternion.identity);
+        var box = Instantiate(hurtboxPrefab, wielder.transform.position + wielder.transform.forward * range, Quaternion.identity);
 
         var targetTemp = box.GetComponent<FindTarget>();
 

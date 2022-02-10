@@ -10,6 +10,7 @@ public class SkillObj : ScriptableObject
     public int maxLevel;
     public int cost;
 
+
     //use skill
     public string characterTag;
     protected GameObject wielder;
@@ -21,7 +22,7 @@ public class SkillObj : ScriptableObject
     public virtual void Use() {
         wielder = GameObject.FindWithTag(characterTag);
 
-        Debug.Log("basic skill");
+        //Debug.Log("basic skill");
         //play animation
 
         //create hitbox
@@ -33,7 +34,7 @@ public class SkillObj : ScriptableObject
     void DisplayHitBox()
     {
         //GameObject hitbox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        var box = Instantiate(hurtboxPrefab, wielder.transform.position + wielder.transform.forward, Quaternion.identity);
+        var box = Instantiate(hurtboxPrefab, wielder.transform.position + wielder.transform.forward, wielder.transform.rotation);
 
         //get target from FindTarget
         var targetTemp = box.GetComponent<FindTarget>();

@@ -50,11 +50,13 @@ public class Skill : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             if (skillProgress.Count >= 3)
             {
                 skillProgress[2].AddExp(5);
+
+                skillProgress[2].skillData.Use();
 
             }
 

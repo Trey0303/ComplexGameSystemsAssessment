@@ -44,7 +44,7 @@ public class MoneyObjOnTrigger : MonoBehaviour
     public void GetMoney()
     {
         //Debug.Log("button pressed");
-        PlayerVariableData.money = PlayerVariableData.money + 1;
+        PlayerVariableData.money = PlayerVariableData.money + 10;
     }
 
     private void OnTriggerEnter(Collider other)

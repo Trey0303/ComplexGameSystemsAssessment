@@ -11,7 +11,7 @@ public class FindTarget : MonoBehaviour
     //SkillObj skillData;
 
     protected GameObject target;
-    public string targetTag;
+    //public string targetTag;
     protected bool targetInRange;
 
     //private void Start()
@@ -40,7 +40,7 @@ public class FindTarget : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == targetTag)
+        if (other.gameObject.layer == 6)
         {
             Debug.Log("enemy out of range");
             targetInRange = false;

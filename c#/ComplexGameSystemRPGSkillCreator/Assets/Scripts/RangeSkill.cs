@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "PhysicalSkillData", menuName = "SkillObjects/ScriptablePhysicalSkills", order = 1)]
-public class PhysicalSkill : SkillObj
+[CreateAssetMenu(fileName = "RangeSkillData", menuName = "SkillObjects/ScriptableRangeSkills", order = 1)]
+public class RangeSkill : SkillObj
 {
-    protected GameObject activePhysicalHitbox;
+    protected GameObject activeRangeHitbox;
 
-    //public AnimationClip physAnimation;
-    
+    // Start is called before the first frame update
     public override void Use()
     {
         wielder = GameObject.FindWithTag(characterTag);
@@ -19,10 +17,10 @@ public class PhysicalSkill : SkillObj
 
     void DisplayHitBox()
     {
-        var box = Instantiate(hurtboxPrefab, new Vector3(wielder.transform.position.x, wielder.transform.position.y, wielder.transform.position.z + 1.1f), Quaternion.identity);
+        var box = Instantiate(hurtboxPrefab, new Vector3(wielder.transform.position.x, wielder.transform.position.y, wielder.transform.position.z + 4.4f), Quaternion.identity);
 
         box.transform.parent = wielder.transform;
-        
+
         Destroy(box, 0.1f);
     }
 
@@ -44,5 +42,4 @@ public class PhysicalSkill : SkillObj
             }
         }
     }
-
 }

@@ -21,7 +21,7 @@ public class SkillProgress
     // The current amount of damage
     public float damage;
     public int cost;
-
+     
     public void AddExp(int expGain)
     {
         exp = exp + expGain;

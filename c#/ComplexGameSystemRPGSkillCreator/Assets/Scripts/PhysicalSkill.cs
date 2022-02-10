@@ -10,7 +10,9 @@ public class PhysicalSkill : SkillObj
 
     public AnimationClip physAnimation;
 
-    public GameObject hurtboxPrefab;
+    //public GameObject hurtboxPrefab;
+
+    //public bool isTarget = false; 
     
     public override void Use()
     {
@@ -45,14 +47,35 @@ public class PhysicalSkill : SkillObj
     void DisplayHitBox()
     {
         //GameObject hitbox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        var box = Instantiate(hurtboxPrefab, wielder.transform.position + wielder.transform.forward, Quaternion.identity);
+        var box = Instantiate(hurtboxPrefab, new Vector3(wielder.transform.position.x, wielder.transform.position.y, wielder.transform.position.z + 1.1f), Quaternion.identity);
+
+        box.transform.parent = wielder.transform;
+        
         Destroy(box, 0.1f);
         //hitbox.transform.position = new Vector3(wielder.transform.position.x, wielder.transform.position.y, wielder.transform.position.z + 1);
         //hitbox.GetComponent<Collider>().isTrigger = true;
 
-        //hitbox.transform.parent = wielder.transform;
 
         //activePhysicalHitbox = box;
+    }
+
+    public void HitTarget(Collider targetCollider)
+    {
+        if (targetCollider != null)
+        {
+            if (targetCollider.gameObject.GetComponent<Health>() != null)
+            {
+                Health targetHealth = targetCollider.gameObject.GetComponent<Health>();
+
+                targetHealth.health = targetHealth.health - damage;
+                //Debug.Log("hit");
+
+            }
+            else
+            {
+                Debug.Log("target does NOT have health script attached");
+            }
+        }
     }
 
     //void DamageTarget()

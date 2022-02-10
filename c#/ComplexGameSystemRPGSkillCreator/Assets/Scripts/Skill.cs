@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
+    public int mana = 100;
+
     public List<SkillProgress> skillProgress = new List<SkillProgress>();
     //protected GameObject target;
     //public string targetTag;
@@ -32,31 +34,18 @@ public class Skill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //skill 1
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            if(skillProgress.Count >= 1)
-            {
-                skillProgress[0].AddExp(5);
-
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            if (skillProgress.Count >= 2)
-            {
-                skillProgress[1].AddExp(5);
-
-            }
-
-        }
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (skillProgress.Count >= 3)
             {
-                skillProgress[2].AddExp(5);
 
-                skillProgress[2].skillData.Use();
+                if (mana >= skillProgress[2].cost)
+                {
+                    skillProgress[2].skillData.Use();
+                    skillProgress[2].AddExp(5);
+                    mana = mana - skillProgress[2].cost;
+
+                }
 
             }
 
@@ -75,8 +64,13 @@ public class Skill : MonoBehaviour
         {
             if(skillProgress.Count >= 1)
             {
-                skillProgress[0].skillData.Use();
-                skillProgress[0].AddExp(5);
+                if (mana >= skillProgress[0].cost)
+                {
+                    skillProgress[0].skillData.Use();
+                    skillProgress[0].AddExp(5);
+                    mana = mana - skillProgress[0].cost;
+
+                }
             }
         }
 
@@ -84,32 +78,16 @@ public class Skill : MonoBehaviour
         {
             if (skillProgress.Count >= 2)
             {
-                skillProgress[1].skillData.Use();
-                skillProgress[1].AddExp(5);
+                if (mana >= skillProgress[1].cost)
+                {
+                    skillProgress[1].skillData.Use();
+                    skillProgress[1].AddExp(5);
+                    mana = mana - skillProgress[1].cost;
+
+                }
             }
         }
+
+        //Debug.Log("Mana: " + mana);
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.tag == targetTag)
-    //    {
-    //        Debug.Log("enemy in range");
-    //        //targetInRange = true;
-    //        target = other.gameObject;
-
-    //        //access skill damage
-
-
-    //    }
-    //}
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.gameObject.tag == targetTag)
-    //    {
-    //        Debug.Log("enemy out of range");
-    //        targetInRange = false;
-    //        target = null;
-    //    }
-    //}
 }

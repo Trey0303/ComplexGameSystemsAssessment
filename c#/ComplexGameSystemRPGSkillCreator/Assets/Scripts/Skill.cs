@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Skill : MonoBehaviour
 {
+    public Slider manaBar;
+    public Text manaText;
+
     public int mana = 100;
 
     public List<SkillProgress> skillProgress = new List<SkillProgress>();
@@ -15,6 +19,9 @@ public class Skill : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        manaText.text = "" + mana;
+        manaBar.value = mana;
+
         for(int i = 0; i < skillProgress.Count; i++)
         {
             //exp[i] = skillData[i].exp; 
@@ -44,7 +51,8 @@ public class Skill : MonoBehaviour
                     skillProgress[2].skillData.Use();
                     skillProgress[2].AddExp(5);
                     mana = mana - skillProgress[2].cost;
-
+                    manaText.text = "" + mana;
+                    manaBar.value = mana;
                 }
 
             }
@@ -69,7 +77,8 @@ public class Skill : MonoBehaviour
                     skillProgress[0].skillData.Use();
                     skillProgress[0].AddExp(5);
                     mana = mana - skillProgress[0].cost;
-
+                    manaText.text = "" + mana;
+                    manaBar.value = mana;
                 }
             }
         }
@@ -83,7 +92,8 @@ public class Skill : MonoBehaviour
                     skillProgress[1].skillData.Use();
                     skillProgress[1].AddExp(5);
                     mana = mana - skillProgress[1].cost;
-
+                    manaText.text = "" + mana;
+                    manaBar.value = mana;
                 }
             }
         }

@@ -9,6 +9,8 @@ public class FindTarget : MonoBehaviour
 
     public List<GameObject> targets;
 
+    public int targetLayer = 6;
+
     private void Update()
     {
         if (targets != null)
@@ -24,7 +26,7 @@ public class FindTarget : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("triggered");
-        if (other.gameObject.layer == 6)//enemy
+        if (other.gameObject.layer == targetLayer)//enemy
         {
             //Debug.Log("enemy in range");
 

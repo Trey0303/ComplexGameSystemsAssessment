@@ -22,15 +22,14 @@ public class SkillObj : ScriptableObject
     public virtual void Use() {
         wielder = GameObject.FindWithTag(characterTag);
 
-        //Debug.Log("basic skill");
         //play animation
 
         //create hitbox
         DisplayHitBox();
 
-        //apply damage
     }
 
+    //display hitBox and find target
     void DisplayHitBox()
     {
         //GameObject hitbox = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -54,6 +53,7 @@ public class SkillObj : ScriptableObject
         //activePhysicalHitbox = box;
     }
 
+    //apply damage
     public virtual void HitTarget(GameObject targetCollider)
     {
         if (targetCollider != null)

@@ -5,22 +5,16 @@ using UnityEngine.UI;
 
 public class SkillBarUi : MonoBehaviour
 {
-    //public List<SkillObj> playerSkillProgress;
 
     public List<SkillObj> playerSkillObjs;
 
     public List<Button> skillWidget;
 
-    //public Dictionary<SkillObj, Button> skillDictionary = new Dictionary<SkillObj, Button>();
-
     private void Start()
     {
-        PlayerVariableData.skillAdded = false;
+        PlayerVariableData.skillToAdd = false;
         //setup
         StartCoroutine(LateStart(.1f));
-        
-
-
     }
 
     IEnumerator LateStart(float waitTime)
@@ -31,9 +25,9 @@ public class SkillBarUi : MonoBehaviour
         for (int i = 0; i < GameObject.FindGameObjectWithTag("Player").GetComponent<Skill>().skillProgress.Count; i++)
         {
             playerSkillObjs.Add(GameObject.FindGameObjectWithTag("Player").GetComponent<Skill>().skillProgress[i].skillData);
-            //playerSkillProgress[i] = GameObject.FindGameObjectWithTag("Player").GetComponent<Skill>().skillProgress[i];
+
             PlayerVariableData.skillDictionary.Add(playerSkillObjs[i], skillWidget[i]);
-            //skillWidget[i].gameObject.SetActive(false);
+
             DisplaySkill(playerSkillObjs[i], skillWidget[i]);
 
 
@@ -43,7 +37,7 @@ public class SkillBarUi : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerVariableData.skillAdded)//if new skill added
+        if (PlayerVariableData.skillToAdd)//if new skill added
         {
             for(int i = 0; i < GameObject.FindGameObjectWithTag("Player").GetComponent<Skill>().skillProgress.Count; i++)
             {
@@ -51,10 +45,13 @@ public class SkillBarUi : MonoBehaviour
                 {
                     if(i == playerSkillObjs.Count)
                     {
+                        //add skill to playerskillobj list
                         playerSkillObjs.Add(GameObject.FindGameObjectWithTag("Player").GetComponent<Skill>().skillProgress[i].skillData);
+                        //store skill and button into dictionary
                         PlayerVariableData.skillDictionary.Add(playerSkillObjs[i], skillWidget[i]);
+                        //display skill on screen
                         DisplaySkill(playerSkillObjs[i], skillWidget[i]);
-                        PlayerVariableData.skillAdded = false;
+                        PlayerVariableData.skillToAdd = false;
 
                     }
                 }

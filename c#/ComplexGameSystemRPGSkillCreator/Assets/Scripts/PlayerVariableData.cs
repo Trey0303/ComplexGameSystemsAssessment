@@ -9,7 +9,7 @@ public class PlayerVariableData : MonoBehaviour
 
     public static bool inShopRange { get; set; }
 
-    public static bool skillAdded { get; set; }
+    public static bool skillToAdd { get; set; }
 
     public static int mana { get; set; }
 

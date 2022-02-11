@@ -233,7 +233,7 @@ public class SkillShopVTwo : MonoBehaviour
                             skillScript.skillProgress.Add(skillShop[i]);
                             
 
-                            PlayerVariableData.skillAdded = true;
+                            PlayerVariableData.skillToAdd = true;
 
                             return;
 

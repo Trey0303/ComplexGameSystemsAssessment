@@ -25,6 +25,7 @@ public class Skill : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        tempbutton = null;
 
         PlayerVariableData.mana = mana;
 
@@ -126,6 +127,11 @@ public class Skill : MonoBehaviour
 
                 tempbutton.interactable = false;
             }
+            else
+            {
+                tempbutton = PlayerVariableData.skillDictionary[skillProgress[0].skillData];
+                tempbutton.interactable = true;
+            }
         }
         
         if(skillProgress.Count >= 2)
@@ -135,6 +141,11 @@ public class Skill : MonoBehaviour
                 tempbutton = PlayerVariableData.skillDictionary[skillProgress[1].skillData];
 
                 tempbutton.interactable = false;
+            }
+            else
+            {
+                tempbutton = PlayerVariableData.skillDictionary[skillProgress[1].skillData];
+                tempbutton.interactable = true;
             }
         }
 
@@ -146,6 +157,11 @@ public class Skill : MonoBehaviour
 
                 tempbutton.interactable = false;
             }
+            else
+            {
+                tempbutton = PlayerVariableData.skillDictionary[skillProgress[2].skillData];
+                tempbutton.interactable = true;
+            }
         }
 
         if (skillProgress.Count >= 4)
@@ -155,6 +171,11 @@ public class Skill : MonoBehaviour
                 tempbutton = PlayerVariableData.skillDictionary[skillProgress[3].skillData];
 
                 tempbutton.interactable = false;
+            }
+            else
+            {
+                tempbutton = PlayerVariableData.skillDictionary[skillProgress[3].skillData];
+                tempbutton.interactable = true;
             }
         }
 

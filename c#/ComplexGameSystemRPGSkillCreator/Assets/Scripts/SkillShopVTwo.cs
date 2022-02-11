@@ -16,6 +16,8 @@ public class SkillShopVTwo : MonoBehaviour
 
     public List<SkillProgress> skillShop = new List<SkillProgress>();
 
+    SkillBarUi skillbarUi;
+
     public List<Text> names;
 
     public List<Text> damage;
@@ -45,7 +47,10 @@ public class SkillShopVTwo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         skillScript = GameObject.FindGameObjectWithTag(taggedGameobjectWithSkillScript).GetComponent<Skill>();
+
+        skillbarUi = GameObject.Find("Panel").GetComponent<SkillBarUi>();
 
         moneyText.text = "0";
         moneyTextPlayerUI.text = "0";
@@ -206,12 +211,8 @@ public class SkillShopVTwo : MonoBehaviour
         //gets gameobject from currenly selected button
         selectedButton = EventSystem.current.currentSelectedGameObject;
 
-        //Debug.Log(selectedButton.name);
-
         for (int i = 0; i < skillShop.Count; i++)
         {
-            //Debug.Log("Selected Button: " + selectedButton.name);
-            //Debug.Log("Button List: " + i);
 
             //if selected button is found in button list
             if (selectedButton == buyButtons[i].gameObject)
@@ -222,17 +223,18 @@ public class SkillShopVTwo : MonoBehaviour
                     //buy item
                     PlayerVariableData.money = PlayerVariableData.money - skillShop[i].cost;
                     itemsOwn[i].text = "Own";
-                    // Debug.Log(itemsOwn[i].text);
                     buyButtons[i].gameObject.SetActive(false);
 
-
+                    //add skill to player skills list
                     for (int j = 0; j <= skillScript.skillProgress.Count; j++)
                     {
-                        //Debug.Log(skillScript.skillProgress[j].name);
                         if (j == skillScript.skillProgress.Count)
                         {
                             skillScript.skillProgress.Add(skillShop[i]);
-                            //skillScript.skills
+                            
+
+                            PlayerVariableData.skillAdded = true;
+
                             return;
 
                         }

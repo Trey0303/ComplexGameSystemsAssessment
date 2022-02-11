@@ -8,11 +8,15 @@ public class Skill : MonoBehaviour
     public Slider manaBar;
     public Text manaText;
 
+
     //public Button[] skills;
 
     public int mana = 100;
 
     public List<SkillProgress> skillProgress = new List<SkillProgress>();
+
+    public Button tempbutton { get; private set; }
+
     //protected GameObject target;
     //public string targetTag;
     //protected bool targetInRange;
@@ -21,8 +25,11 @@ public class Skill : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        manaText.text = "" + mana;
-        manaBar.value = mana;
+
+        PlayerVariableData.mana = mana;
+
+        manaText.text = "" + PlayerVariableData.mana;
+        manaBar.value = PlayerVariableData.mana;
         
 
         for (int i = 0; i < skillProgress.Count; i++)
@@ -44,17 +51,23 @@ public class Skill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(PlayerVariableData.mana != mana)
+        {
+            mana = PlayerVariableData.mana;
+            manaText.text = "" + PlayerVariableData.mana;
+            manaBar.value = PlayerVariableData.mana;
+        }
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if(skillProgress.Count >= 1)
             {
-                if (mana >= skillProgress[0].cost)
+                if (PlayerVariableData.mana >= skillProgress[0].cost)
                 {
                     skillProgress[0].skillData.Use();
                     skillProgress[0].AddExp(5);
-                    mana = mana - skillProgress[0].cost;
-                    manaText.text = "" + mana;
-                    manaBar.value = mana;
+                    PlayerVariableData.mana = PlayerVariableData.mana - skillProgress[0].cost;
+                    
                     
 
                 }
@@ -65,13 +78,14 @@ public class Skill : MonoBehaviour
         {
             if (skillProgress.Count >= 2)
             {
-                if (mana >= skillProgress[1].cost)
+                if (PlayerVariableData.mana >= skillProgress[1].cost)
                 {
                     skillProgress[1].skillData.Use();
                     skillProgress[1].AddExp(5);
-                    mana = mana - skillProgress[1].cost;
-                    manaText.text = "" + mana;
-                    manaBar.value = mana;
+                    PlayerVariableData.mana = PlayerVariableData.mana - skillProgress[1].cost;
+                    //manaText.text = "" + PlayerVariableData.mana;
+                    //manaBar.value = PlayerVariableData.mana;
+                    
                 }
             }
         }
@@ -81,13 +95,14 @@ public class Skill : MonoBehaviour
             if (skillProgress.Count >= 3)
             {
 
-                if (mana >= skillProgress[2].cost)
+                if (PlayerVariableData.mana >= skillProgress[2].cost)
                 {
                     skillProgress[2].skillData.Use();
                     skillProgress[2].AddExp(5);
-                    mana = mana - skillProgress[2].cost;
-                    manaText.text = "" + mana;
-                    manaBar.value = mana;
+                    PlayerVariableData.mana = PlayerVariableData.mana - skillProgress[2].cost;
+                    //manaText.text = "" + PlayerVariableData.mana;
+                    //manaBar.value = PlayerVariableData.mana;
+                    
                 }
 
             }
@@ -103,45 +118,47 @@ public class Skill : MonoBehaviour
 
         }
 
-        //if (skillProgress[0].cost != null)
-        //{
-        //    if (mana < skillProgress[0].cost)
-        //    {
-        //        skills[0].interactable = false;
-        //    }
+        if (skillProgress.Count >= 1)
+        {
+            if (PlayerVariableData.mana < skillProgress[0].cost)
+            {
+                tempbutton = PlayerVariableData.skillDictionary[skillProgress[0].skillData];
 
-        //}
+                tempbutton.interactable = false;
+            }
+        }
+        
+        if(skillProgress.Count >= 2)
+        {
+            if (PlayerVariableData.mana < skillProgress[1].cost)
+            {
+                tempbutton = PlayerVariableData.skillDictionary[skillProgress[1].skillData];
+
+                tempbutton.interactable = false;
+            }
+        }
+
+        if (skillProgress.Count >= 3)
+        {
+            if (PlayerVariableData.mana < skillProgress[2].cost)
+            {
+                tempbutton = PlayerVariableData.skillDictionary[skillProgress[2].skillData];
+
+                tempbutton.interactable = false;
+            }
+        }
+
+        if (skillProgress.Count >= 4)
+        {
+            if (PlayerVariableData.mana < skillProgress[3].cost)
+            {
+                tempbutton = PlayerVariableData.skillDictionary[skillProgress[3].skillData];
+
+                tempbutton.interactable = false;
+            }
+        }
 
 
-        //if (skillProgress[1].cost != null)
-        //{
-        //    if (mana < skillProgress[1].cost)
-        //    {
-        //        skills[1].interactable = false;
-        //    }
 
-        //}
-
-        //if (skillProgress[2].cost != null)
-        //{
-        //    if (mana < skillProgress[2].cost)
-        //    {
-        //        skills[2].interactable = false;
-        //    }
-
-        //}
-
-
-        //if (skillProgress[3].cost != null)
-        //{
-        //    if (mana < skillProgress[3].cost)
-        //    {
-        //        skills[3].interactable = false;
-        //    }
-
-        //}
-
-
-        //Debug.Log("Mana: " + mana);
     }
 }

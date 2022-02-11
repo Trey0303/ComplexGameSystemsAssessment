@@ -10,14 +10,14 @@ public class PhysicalSkill : SkillObj
 
     //public AnimationClip physAnimation;
     
-    public override void Use()
+    public override void Use(float skillProgDamage)
     {
         wielder = GameObject.FindWithTag(characterTag);
 
-        DisplayHitBox();
+        DisplayHitBox(skillProgDamage);
     }
 
-    void DisplayHitBox()
+    void DisplayHitBox(float skillProgDamage)
     {
         var box = Instantiate(hurtboxPrefab, wielder.transform.position + wielder.transform.forward, wielder.transform.rotation);
 
@@ -27,28 +27,13 @@ public class PhysicalSkill : SkillObj
         //give FindTarget current skill
         targetTemp.skill = this;
 
+        int tempDamage = (int)skillProgDamage;
+
+        targetTemp.damage = tempDamage;
+
         box.transform.parent = wielder.transform;
         
         Destroy(box, .1f);
     }
-
-    //public void HitTarget(Collider targetCollider)
-    //{
-    //    if (targetCollider != null)
-    //    {
-    //        if (targetCollider.gameObject.GetComponent<Health>() != null)
-    //        {
-    //            Health targetHealth = targetCollider.gameObject.GetComponent<Health>();
-
-    //            targetHealth.health = targetHealth.health - damage;
-    //            //Debug.Log("hit");
-
-    //        }
-    //        else
-    //        {
-    //            Debug.Log("target does NOT have health script attached");
-    //        }
-    //    }
-    //}
 
 }

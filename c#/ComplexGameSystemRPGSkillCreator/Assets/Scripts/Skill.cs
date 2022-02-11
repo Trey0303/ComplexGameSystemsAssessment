@@ -65,7 +65,7 @@ public class Skill : MonoBehaviour
             {
                 if (PlayerVariableData.mana >= skillProgress[0].cost)
                 {
-                    skillProgress[0].skillData.Use();
+                    skillProgress[0].Use();
                     skillProgress[0].AddExp(5);
                     PlayerVariableData.mana = PlayerVariableData.mana - skillProgress[0].cost;
                     
@@ -81,7 +81,8 @@ public class Skill : MonoBehaviour
             {
                 if (PlayerVariableData.mana >= skillProgress[1].cost)
                 {
-                    skillProgress[1].skillData.Use();
+                    // when the skill is used, skillprogress is passed to it
+                    skillProgress[1].Use();
                     skillProgress[1].AddExp(5);
                     PlayerVariableData.mana = PlayerVariableData.mana - skillProgress[1].cost;
                     //manaText.text = "" + PlayerVariableData.mana;
@@ -98,7 +99,7 @@ public class Skill : MonoBehaviour
 
                 if (PlayerVariableData.mana >= skillProgress[2].cost)
                 {
-                    skillProgress[2].skillData.Use();
+                    skillProgress[2].Use();
                     skillProgress[2].AddExp(5);
                     PlayerVariableData.mana = PlayerVariableData.mana - skillProgress[2].cost;
                     //manaText.text = "" + PlayerVariableData.mana;
@@ -130,6 +131,7 @@ public class Skill : MonoBehaviour
             else
             {
                 tempbutton = PlayerVariableData.skillDictionary[skillProgress[0].skillData];
+
                 tempbutton.interactable = true;
             }
         }

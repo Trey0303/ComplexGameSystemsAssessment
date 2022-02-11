@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhysicalSkillData
   m_EditorClassIdentifier: 
   skillName: physSlash
-  damage: 6
+  damage: 3
   maxLevel: 99
   cost: 5
   characterTag: Player

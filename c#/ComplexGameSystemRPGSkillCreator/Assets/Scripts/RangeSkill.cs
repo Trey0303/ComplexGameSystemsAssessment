@@ -10,20 +10,24 @@ public class RangeSkill : SkillObj
     protected GameObject activeRangeHitbox;
 
     // Start is called before the first frame update
-    public override void Use()
+    public override void Use(float skillProgDamage)
     {
         wielder = GameObject.FindWithTag(characterTag);
         
-        DisplayHitBox();
+        DisplayHitBox(skillProgDamage);
     }
 
-    void DisplayHitBox()
+    void DisplayHitBox(float skillProgDamage)
     {
         var box = Instantiate(hurtboxPrefab, wielder.transform.position + wielder.transform.forward * range, Quaternion.identity);
 
         var targetTemp = box.GetComponent<FindTarget>();
 
         targetTemp.skill = this;
+
+        int tempDamage = (int)skillProgDamage;
+
+        targetTemp.damage = tempDamage;
 
         box.transform.parent = wielder.transform;
 

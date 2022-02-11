@@ -12,6 +12,7 @@ public class SkillBarUi : MonoBehaviour
 
     private void Start()
     {
+
         PlayerVariableData.skillToAdd = false;
         //setup
         StartCoroutine(LateStart(.1f));
@@ -30,6 +31,7 @@ public class SkillBarUi : MonoBehaviour
 
             DisplaySkill(playerSkillObjs[i], skillWidget[i]);
 
+            
 
 
         }

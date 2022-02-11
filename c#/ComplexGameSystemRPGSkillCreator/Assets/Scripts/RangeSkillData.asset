@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RangeSkillData
   m_EditorClassIdentifier: 
   skillName: meteor
-  damage: 20
+  damage: 26
   maxLevel: 99
   cost: 30
   characterTag: Player

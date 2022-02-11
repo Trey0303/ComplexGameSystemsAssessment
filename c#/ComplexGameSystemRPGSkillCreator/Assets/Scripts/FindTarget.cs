@@ -10,6 +10,7 @@ public class FindTarget : MonoBehaviour
     public List<GameObject> targets;
 
     public int targetLayer = 6;
+    internal int damage;
 
     private void Update()
     {
@@ -17,7 +18,7 @@ public class FindTarget : MonoBehaviour
         {
             for(int i = 0; i < targets.Count; i++)
             {
-                skill.HitTarget(targets[i]);
+                skill.HitTarget(targets[i], damage);
                 targets[i] = null;
             }
         }

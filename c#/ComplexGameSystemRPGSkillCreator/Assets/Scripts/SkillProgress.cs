@@ -62,4 +62,13 @@ public class SkillProgress
         damage = newSkill.damage;
         cost = newSkill.cost;
     }
+
+    // Use? - calls the skill and passes any relevant information
+    public void Use()
+    {
+        // take the skill that I represent
+
+        // tell it to be used, and how much damage it would deal if it hits
+        skillData.Use(damage);
+    }
 }

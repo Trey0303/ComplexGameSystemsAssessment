@@ -10,7 +10,6 @@ public class SkillObj : ScriptableObject
     public int maxLevel;
     public int cost;
 
-
     //use skill
     public string characterTag;
     protected GameObject wielder;
@@ -19,18 +18,18 @@ public class SkillObj : ScriptableObject
     public GameObject hurtboxPrefab;
 
 
-    public virtual void Use() {
+    public virtual void Use(float skillProgDamage) {
         wielder = GameObject.FindWithTag(characterTag);
 
         //play animation
 
         //create hitbox
-        DisplayHitBox();
+        DisplayHitBox(skillProgDamage);
 
     }
 
     //display hitBox and find target
-    void DisplayHitBox()
+    void DisplayHitBox(float skillProgDamage)
     {
         //GameObject hitbox = GameObject.CreatePrimitive(PrimitiveType.Cube);
         var box = Instantiate(hurtboxPrefab, wielder.transform.position + wielder.transform.forward, wielder.transform.rotation);
@@ -41,20 +40,20 @@ public class SkillObj : ScriptableObject
         //give FindTarget current skill
         targetTemp.skill = this;
 
+        
+        int tempDamage = (int)skillProgDamage;
+
+        //created a damage var in targetTemp to prevent changes being saved to default damage
+        targetTemp.damage = tempDamage;
+
         //hitbox follows player while active
         box.transform.parent = wielder.transform;
 
         Destroy(box, 0.1f);
-        //hitbox.transform.position = new Vector3(wielder.transform.position.x, wielder.transform.position.y, wielder.transform.position.z + 1);
-        //hitbox.GetComponent<Collider>().isTrigger = true;
-
-        //hitbox.transform.parent = wielder.transform;
-
-        //activePhysicalHitbox = box;
     }
 
     //apply damage
-    public virtual void HitTarget(GameObject targetCollider)
+    public virtual void HitTarget(GameObject targetCollider , float skillProgDamage)
     {
         if (targetCollider != null)
         {
@@ -62,8 +61,9 @@ public class SkillObj : ScriptableObject
             {
                 Health targetHealth = targetCollider.gameObject.GetComponent<Health>();
 
-                targetHealth.health = targetHealth.health - damage;
-                //Debug.Log("hit");
+                //damage = 
+
+                targetHealth.health = targetHealth.health - (int)skillProgDamage;
 
             }
             else

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SkillData 2
   m_EditorClassIdentifier: 
   skillName: Flame Slash
-  damage: 12
+  damage: 16
   maxLevel: 99
   cost: 18
   characterTag: Player
-  hurtboxPrefab: {fileID: 863276530170334723, guid: 70c710a149c92f64194f991ee901e668, type: 3}
+  hurtboxPrefab: {fileID: 1862325864672306309, guid: ba68d447cd7e39c4bb96aff88cc508dd, type: 3}

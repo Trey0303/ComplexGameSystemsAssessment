@@ -18,3 +18,4 @@ MonoBehaviour:
   cost: 30
   characterTag: Player
   hurtboxPrefab: {fileID: 1887587451520837217, guid: 13e829c3aeab6ad4ab220d5af35c1562, type: 3}
+  range: 4

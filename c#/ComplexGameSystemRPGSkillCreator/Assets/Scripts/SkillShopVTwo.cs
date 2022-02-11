@@ -8,6 +8,8 @@ public class SkillShopVTwo : MonoBehaviour
 {
     public Skill skillScript;
 
+    
+
     public string taggedGameobjectWithSkillScript;
 
     //public List<SkillObj> shopList;
@@ -56,6 +58,7 @@ public class SkillShopVTwo : MonoBehaviour
 
         for (int j = 0; j < skillShop.Count; j++)
         {
+            //setup shop
             int count = 0;
             skillShop[j].AddSkill();
             names[j].text = skillShop[j].skillData.skillName;
@@ -229,6 +232,7 @@ public class SkillShopVTwo : MonoBehaviour
                         if (j == skillScript.skillProgress.Count)
                         {
                             skillScript.skillProgress.Add(skillShop[i]);
+                            //skillScript.skills
                             return;
 
                         }

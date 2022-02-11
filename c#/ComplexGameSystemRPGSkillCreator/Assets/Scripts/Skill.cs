@@ -8,6 +8,8 @@ public class Skill : MonoBehaviour
     public Slider manaBar;
     public Text manaText;
 
+    //public Button[] skills;
+
     public int mana = 100;
 
     public List<SkillProgress> skillProgress = new List<SkillProgress>();
@@ -21,8 +23,9 @@ public class Skill : MonoBehaviour
     {
         manaText.text = "" + mana;
         manaBar.value = mana;
+        
 
-        for(int i = 0; i < skillProgress.Count; i++)
+        for (int i = 0; i < skillProgress.Count; i++)
         {
             //exp[i] = skillData[i].exp; 
             if(skillProgress.Count != 0)
@@ -41,6 +44,38 @@ public class Skill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if(skillProgress.Count >= 1)
+            {
+                if (mana >= skillProgress[0].cost)
+                {
+                    skillProgress[0].skillData.Use();
+                    skillProgress[0].AddExp(5);
+                    mana = mana - skillProgress[0].cost;
+                    manaText.text = "" + mana;
+                    manaBar.value = mana;
+                    
+
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (skillProgress.Count >= 2)
+            {
+                if (mana >= skillProgress[1].cost)
+                {
+                    skillProgress[1].skillData.Use();
+                    skillProgress[1].AddExp(5);
+                    mana = mana - skillProgress[1].cost;
+                    manaText.text = "" + mana;
+                    manaBar.value = mana;
+                }
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (skillProgress.Count >= 3)
@@ -68,35 +103,44 @@ public class Skill : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if(skillProgress.Count >= 1)
-            {
-                if (mana >= skillProgress[0].cost)
-                {
-                    skillProgress[0].skillData.Use();
-                    skillProgress[0].AddExp(5);
-                    mana = mana - skillProgress[0].cost;
-                    manaText.text = "" + mana;
-                    manaBar.value = mana;
-                }
-            }
-        }
+        //if (skillProgress[0].cost != null)
+        //{
+        //    if (mana < skillProgress[0].cost)
+        //    {
+        //        skills[0].interactable = false;
+        //    }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (skillProgress.Count >= 2)
-            {
-                if (mana >= skillProgress[1].cost)
-                {
-                    skillProgress[1].skillData.Use();
-                    skillProgress[1].AddExp(5);
-                    mana = mana - skillProgress[1].cost;
-                    manaText.text = "" + mana;
-                    manaBar.value = mana;
-                }
-            }
-        }
+        //}
+
+
+        //if (skillProgress[1].cost != null)
+        //{
+        //    if (mana < skillProgress[1].cost)
+        //    {
+        //        skills[1].interactable = false;
+        //    }
+
+        //}
+
+        //if (skillProgress[2].cost != null)
+        //{
+        //    if (mana < skillProgress[2].cost)
+        //    {
+        //        skills[2].interactable = false;
+        //    }
+
+        //}
+
+
+        //if (skillProgress[3].cost != null)
+        //{
+        //    if (mana < skillProgress[3].cost)
+        //    {
+        //        skills[3].interactable = false;
+        //    }
+
+        //}
+
 
         //Debug.Log("Mana: " + mana);
     }

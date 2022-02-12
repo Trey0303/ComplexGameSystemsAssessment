@@ -21,8 +21,6 @@ public class SkillObj : ScriptableObject
     public virtual void Use(float skillProgDamage) {
         wielder = GameObject.FindWithTag(characterTag);
 
-        //play animation
-
         //create hitbox
         DisplayHitBox(skillProgDamage);
 

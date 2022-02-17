@@ -15,7 +15,7 @@ public class Skill : MonoBehaviour
 
     public List<SkillProgress> skillProgress = new List<SkillProgress>();
 
-    public Button tempbutton { get; private set; }
+    //public Button tempbutton { get; private set; }
 
     //protected GameObject target;
     //public string targetTag;
@@ -25,7 +25,7 @@ public class Skill : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tempbutton = null;
+        //tempbutton = null;
 
         PlayerVariableData.mana = mana;
 
@@ -63,13 +63,11 @@ public class Skill : MonoBehaviour
         {
             if(skillProgress.Count >= 1)
             {
-                if (PlayerVariableData.mana >= skillProgress[0].cost)
+                if (skillReady(0))
                 {
                     skillProgress[0].Use();
                     skillProgress[0].AddExp(5);
                     PlayerVariableData.mana = PlayerVariableData.mana - skillProgress[0].cost;
-                    
-                    
 
                 }
             }
@@ -79,14 +77,12 @@ public class Skill : MonoBehaviour
         {
             if (skillProgress.Count >= 2)
             {
-                if (PlayerVariableData.mana >= skillProgress[1].cost)
+                if (skillReady(1))
                 {
                     // when the skill is used, skillprogress is passed to it
                     skillProgress[1].Use();
                     skillProgress[1].AddExp(5);
                     PlayerVariableData.mana = PlayerVariableData.mana - skillProgress[1].cost;
-                    //manaText.text = "" + PlayerVariableData.mana;
-                    //manaBar.value = PlayerVariableData.mana;
                     
                 }
             }
@@ -97,13 +93,11 @@ public class Skill : MonoBehaviour
             if (skillProgress.Count >= 3)
             {
 
-                if (PlayerVariableData.mana >= skillProgress[2].cost)
+                if (skillReady(2))
                 {
                     skillProgress[2].Use();
                     skillProgress[2].AddExp(5);
                     PlayerVariableData.mana = PlayerVariableData.mana - skillProgress[2].cost;
-                    //manaText.text = "" + PlayerVariableData.mana;
-                    //manaBar.value = PlayerVariableData.mana;
                     
                 }
 
@@ -114,74 +108,90 @@ public class Skill : MonoBehaviour
         {
             if (skillProgress.Count >= 4)
             {
-                skillProgress[3].AddExp(5);
+
+                if (skillReady(3))
+                {
+                    skillProgress[3].AddExp(5);
+
+                }
 
             }
 
         }
-
-        if (skillProgress.Count >= 1)
-        {
-            if (PlayerVariableData.mana < skillProgress[0].cost)
-            {
-                tempbutton = PlayerVariableData.skillDictionary[skillProgress[0].skillData];
-
-                tempbutton.interactable = false;
-            }
-            else
-            {
-                tempbutton = PlayerVariableData.skillDictionary[skillProgress[0].skillData];
-
-                tempbutton.interactable = true;
-            }
-        }
-        
-        if(skillProgress.Count >= 2)
-        {
-            if (PlayerVariableData.mana < skillProgress[1].cost)
-            {
-                tempbutton = PlayerVariableData.skillDictionary[skillProgress[1].skillData];
-
-                tempbutton.interactable = false;
-            }
-            else
-            {
-                tempbutton = PlayerVariableData.skillDictionary[skillProgress[1].skillData];
-                tempbutton.interactable = true;
-            }
-        }
-
-        if (skillProgress.Count >= 3)
-        {
-            if (PlayerVariableData.mana < skillProgress[2].cost)
-            {
-                tempbutton = PlayerVariableData.skillDictionary[skillProgress[2].skillData];
-
-                tempbutton.interactable = false;
-            }
-            else
-            {
-                tempbutton = PlayerVariableData.skillDictionary[skillProgress[2].skillData];
-                tempbutton.interactable = true;
-            }
-        }
-
-        if (skillProgress.Count >= 4)
-        {
-            if (PlayerVariableData.mana < skillProgress[3].cost)
-            {
-                tempbutton = PlayerVariableData.skillDictionary[skillProgress[3].skillData];
-
-                tempbutton.interactable = false;
-            }
-            else
-            {
-                tempbutton = PlayerVariableData.skillDictionary[skillProgress[3].skillData];
-                tempbutton.interactable = true;
-            }
-        }
-
-
 
     }
+
+    public bool skillReady(int skill)
+    {
+        if (PlayerVariableData.mana >= skillProgress[skill].cost)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
+
+        //if (skillProgress.Count >= 1)
+        //{
+        //    if (PlayerVariableData.mana < skillProgress[0].cost)
+        //    {
+        //        tempbutton = PlayerVariableData.skillDictionary[skillProgress[0].skillData];
+
+        //        tempbutton.interactable = false;
+        //    }
+        //    else
+        //    {
+        //        Debug.Assert(PlayerVariableData.skillDictionary.ContainsKey(skillProgress[0].skillData), "The skill: " + skillProgress[0].skillData.skillName + " was not found in the dictionary.");
+        //        tempbutton = PlayerVariableData.skillDictionary[skillProgress[0].skillData];
+
+        //        tempbutton.interactable = true;
+        //    }
+        //}
+        
+        //if(skillProgress.Count >= 2)
+        //{
+        //    if (PlayerVariableData.mana < skillProgress[1].cost)
+        //    {
+        //        tempbutton = PlayerVariableData.skillDictionary[skillProgress[1].skillData];
+
+        //        tempbutton.interactable = false;
+        //    }
+        //    else
+        //    {
+        //        tempbutton = PlayerVariableData.skillDictionary[skillProgress[1].skillData];
+        //        tempbutton.interactable = true;
+        //    }
+        //}
+
+        //if (skillProgress.Count >= 3)
+        //{
+        //    if (PlayerVariableData.mana < skillProgress[2].cost)
+        //    {
+        //        tempbutton = PlayerVariableData.skillDictionary[skillProgress[2].skillData];
+
+        //        tempbutton.interactable = false;
+        //    }
+        //    else
+        //    {
+        //        tempbutton = PlayerVariableData.skillDictionary[skillProgress[2].skillData];
+        //        tempbutton.interactable = true;
+        //    }
+        //}
+
+        //if (skillProgress.Count >= 4)
+        //{
+        //    if (PlayerVariableData.mana < skillProgress[3].cost)
+        //    {
+        //        tempbutton = PlayerVariableData.skillDictionary[skillProgress[3].skillData];
+
+        //        tempbutton.interactable = false;
+        //    }
+        //    else
+        //    {
+        //        tempbutton = PlayerVariableData.skillDictionary[skillProgress[3].skillData];
+        //        tempbutton.interactable = true;
+        //    }
+        //}

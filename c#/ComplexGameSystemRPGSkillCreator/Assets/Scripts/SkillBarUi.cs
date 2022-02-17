@@ -5,13 +5,19 @@ using UnityEngine.UI;
 
 public class SkillBarUi : MonoBehaviour
 {
+    public Skill skills;
 
     public List<SkillObj> playerSkillObjs;
 
     public List<Button> skillWidget;
 
+    public Button tempButton { get; private set; }
+
     private void Start()
     {
+        tempButton = null;
+
+        skills = GameObject.FindGameObjectWithTag("Player").GetComponent<Skill>();
 
         PlayerVariableData.skillToAdd = false;
         //setup
@@ -39,7 +45,8 @@ public class SkillBarUi : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerVariableData.skillToAdd)//if new skill added
+        // if new skill added, add a button for it
+        if (PlayerVariableData.skillToAdd)
         {
             for(int i = 0; i < GameObject.FindGameObjectWithTag("Player").GetComponent<Skill>().skillProgress.Count; i++)
             {
@@ -49,17 +56,43 @@ public class SkillBarUi : MonoBehaviour
                     {
                         //add skill to playerskillobj list
                         playerSkillObjs.Add(GameObject.FindGameObjectWithTag("Player").GetComponent<Skill>().skillProgress[i].skillData);
+
+                        //TO DO: Create and add new button to skill dictionary 
+                        //skillWidget.Add();
+
                         //store skill and button into dictionary
                         PlayerVariableData.skillDictionary.Add(playerSkillObjs[i], skillWidget[i]);
                         //display skill on screen
                         DisplaySkill(playerSkillObjs[i], skillWidget[i]);
                         PlayerVariableData.skillToAdd = false;
-
                     }
                 }
 
             }
         }
+
+
+        // update the status of all of the buttons
+        if(skills.skillProgress.Count != 0)
+        {
+            for(int i = 0; i < skills.skillProgress.Count; i++)
+            {
+                if (skills.skillProgress.Count >= i)
+                {
+                    if (skills.skillReady(i))//if skill can be used
+                    {
+                        tempButton = PlayerVariableData.skillDictionary[skills.skillProgress[i].skillData];
+                        tempButton.interactable = true;
+                    }
+                    else
+                    {
+                        tempButton = PlayerVariableData.skillDictionary[skills.skillProgress[i].skillData];
+                        tempButton.interactable = false;
+                    }
+                }
+            }
+        }
+
     }
 
     void DisplaySkill(SkillObj skillObj, Button widget)

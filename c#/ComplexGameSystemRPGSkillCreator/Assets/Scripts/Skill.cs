@@ -73,7 +73,7 @@ public class Skill : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             if (skillProgress.Count >= 2)
             {
@@ -104,14 +104,16 @@ public class Skill : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             if (skillProgress.Count >= 4)
             {
 
                 if (skillReady(3))
                 {
+                    skillProgress[3].Use();
                     skillProgress[3].AddExp(5);
+                    PlayerVariableData.mana = PlayerVariableData.mana - skillProgress[3].cost;
 
                 }
 

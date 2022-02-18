@@ -220,20 +220,29 @@ public class SkillShopVTwo : MonoBehaviour
                 //check if player has enough money
                 if (PlayerVariableData.money >= skillShop[i].cost)
                 {
-                    //buy item
-                    PlayerVariableData.money = PlayerVariableData.money - skillShop[i].cost;
-                    itemsOwn[i].text = "Own";
-                    buyButtons[i].gameObject.SetActive(false);
 
                     //add skill to player skills list
                     for (int j = 0; j <= skillScript.skillProgress.Count; j++)
                     {
                         if (j == skillScript.skillProgress.Count)
                         {
-                            skillScript.skillProgress.Add(skillShop[i]);
-                            
 
-                            PlayerVariableData.skillToAdd = true;
+                            if (j < GameObject.Find("Panel").GetComponent<SkillBarUi>().skillWidget.Count)//if skill inventory has space
+                            {
+                                //buy item
+                                PlayerVariableData.money = PlayerVariableData.money - skillShop[i].cost;
+                                itemsOwn[i].text = "Own";
+                                buyButtons[i].gameObject.SetActive(false);
+
+                                //add skill to player skill list
+                                skillScript.skillProgress.Add(skillShop[i]);
+                                PlayerVariableData.skillToAdd = true;
+
+                            }
+                            else
+                            {
+                                //Debug.Log("skills inventory full");
+                            }
 
                             return;
 

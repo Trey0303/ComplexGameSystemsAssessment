@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class respawn : MonoBehaviour
 {
+    public static GameObject spawnpoint { get; set; }
+
     GameObject player;
 
-    GameObject spawnpoint;
+    //GameObject spawnpoint;
 
     // Start is called before the first frame update
     void Start()

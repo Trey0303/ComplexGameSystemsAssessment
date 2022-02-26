@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SkillData
   m_EditorClassIdentifier: 
   skillName: Cut
-  damage: 3
+  damage: 99
   maxLevel: 99
   cost: 5
   characterTag: Player
